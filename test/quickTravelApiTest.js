@@ -1,0 +1,73 @@
+var nock = require('nock');
+var expect = require('chai').expect
+var QuickTravelApi = require('../dist/printers_qt').QuickTravelApi;
+
+const host = "http://127.0.0.1:8000";
+const bookingId = 1;
+
+describe('reprint', () => {
+  beforeEach(function() {
+    nock(host)
+      .post('/api/bookings/1/issued_tickets/reprint.json', {
+        issued_ticket_ids: [1, 2, 3],
+        print_server_type: 'quickets',
+      })
+      .reply(200, {msg: 'Success'});
+
+      nock(host)
+        .post('/api/bookings/1/issued_tickets/reprint.json', {
+          issued_ticket_ids: [1, 2, 3],
+          print_server_type: 'quickets',
+          authenticity_token: 'token',
+        })
+        .reply(200, {msg: 'SuccessWithToken'});
+  });
+
+  it ('should print to the printer', (done) => {
+    const issuedTicketIds = [1, 2, 3];
+
+    new QuickTravelApi(host).reprintTickets(bookingId, issuedTicketIds).then(function(response) {
+      expect(response).to.deep.equal({msg: 'Success'});
+      done();
+    })
+  });
+
+  it ('should optionally provide a csrf token', (done) => {
+    const issuedTicketIds = [1, 2, 3];
+    const opts = { authenticity_token: 'token' };
+
+    new QuickTravelApi(host).reprintTickets(bookingId, issuedTicketIds, opts).then(function(response) {
+      expect(response).to.deep.equal({msg: 'SuccessWithToken'});
+      done();
+    })
+  });
+});
+
+describe('issue_and_print', () => {
+  beforeEach(function() {
+    nock(host)
+      .post('/api/bookings/1/issued_tickets/issue_and_print.json', {
+        reservation_ids: [100, 2, 300],
+        print_server_type: 'quickets',
+      })
+      .reply(200, {msg: 'Success'});
+  });
+
+  it ('should print to the printer', (done) => {
+    const reservationIds = [100, 2, 300];
+    new QuickTravelApi(host).issueAndPrint(bookingId, reservationIds).then(function(response) {
+      expect(response).to.deep.equal({msg: 'Success'});
+      done();
+    });
+  });
+
+  it ('should optionally provide a csrf token', (done) => {
+    const issuedTicketIds = [1, 2, 3];
+    const opts = { authenticity_token: 'token' };
+
+    new QuickTravelApi(host).reprintTickets(bookingId, issuedTicketIds, opts).then(function(response) {
+      expect(response).to.deep.equal({msg: 'SuccessWithToken'});
+      done();
+    })
+  });
+});

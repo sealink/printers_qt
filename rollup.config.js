@@ -1,12 +1,13 @@
 import babel from 'rollup-plugin-babel';
-import babelrc from 'babelrc-rollup';
 import istanbul from 'rollup-plugin-istanbul';
 
 let pkg = require('./package.json');
-let external = Object.keys(pkg.dependencies);
 
 let plugins = [
-  babel(babelrc()),
+  babel({
+    exclude: 'node_modules/**',
+    plugins: ["external-helpers"]
+  })
 ];
 
 if (process.env.BUILD !== 'production') {
@@ -18,12 +19,15 @@ if (process.env.BUILD !== 'production') {
 export default {
   entry: 'lib/index.js',
   plugins: plugins,
-  external: external,
+  external: ['node-fetch', 'regenerator-runtime/runtime'],
+  globals: {
+   'node-fetch': 'fetch',
+ },
   targets: [
     {
       dest: pkg.main,
       format: 'umd',
-      moduleName: 'rollupStarterProject',
+      moduleName: 'printers-qt',
       sourceMap: true
     },
     {
