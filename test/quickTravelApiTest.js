@@ -75,6 +75,6 @@ describe('issue_and_print', () => {
     new QuickTravelApi(host).issueAndPrint(bookingId, reservationIds, opts).then(function(response) {
       expect(response).to.deep.equal({msg: 'SuccessWithToken'});
       done();
-    }).catch((err) => console.log(err) )
+    });
   });
 });
