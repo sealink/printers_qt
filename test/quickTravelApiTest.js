@@ -51,6 +51,14 @@ describe('issue_and_print', () => {
         print_server_type: 'quickets',
       })
       .reply(200, {msg: 'Success'});
+
+      nock(host)
+        .post('/api/bookings/2/issued_tickets/reprint.json', {
+          issued_ticket_ids: [1, 2, 3],
+          print_server_type: 'quickets',
+          authenticity_token: 'token',
+        })
+        .reply(200, {msg: 'SuccessWithToken'});
   });
 
   it ('should print to the printer', (done) => {
@@ -63,9 +71,10 @@ describe('issue_and_print', () => {
 
   it ('should optionally provide a csrf token', (done) => {
     const issuedTicketIds = [1, 2, 3];
+    const bookingId = 2;
     const opts = { authenticity_token: 'token' };
 
-    new QuickTravelApi(host).reprintTickets(bookingId, issuedTicketIds, opts).then(function(response) {
+    new QuickTravelApi(host).issueAndPrint(bookingId, issuedTicketIds, opts).then(function(response) {
       expect(response).to.deep.equal({msg: 'SuccessWithToken'});
       done();
     })
