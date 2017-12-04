@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const instanbul = require('istanbul');
 const MochaSpecReporter = require('mocha/lib/reporters/spec');
 
@@ -7,10 +9,10 @@ module.exports = function (runner) {
   reporter.addAll(['lcov', 'json']);
   new MochaSpecReporter(runner);
 
-  runner.on('end', function () {
+  runner.on('end', () => {
     collector.add(global.__coverage__);
 
-    reporter.write(collector, true, function () {
+    reporter.write(collector, true, () => {
       process.stdout.write('report generated');
     });
   });
