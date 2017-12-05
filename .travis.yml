@@ -1,5 +1,13 @@
 language: node_js
 node_js:
-  - "6.0"
-  - "8.0"
+- '6.0'
+- '8.0'
 after_success: yarn coverage
+deploy:
+  provider: npm
+  email: support@travellink.com.au
+  api_key:
+    secure: kOQCbyc/xbSuqoQDX0gL8bvS/QFAopoEbGE+wCceB7O9AKHy/xviWmyJsBnxZsO0ga7jxRxk292Q/qJGtUjWYqDpcmBySORLHLvMEjF9AsCtDcF+mr2ynrmpLskSAeCs1HOeZmyp7wD5cWGbsTAZ/ZGpHIMrafwSKwql2fjhVDW3ugRMAni//sQHk5w3l4S2GaD1mLFZO2VkBcwbU82Kricsrn9qlybupTGPH82mv6I4D4RWC8BBieyVcR48opYD76wHGs9/TMOny40HdrrltXeBfQvLLiyqw/I5ZQDFR4/cX2iOVfC7ZIg8j4MAYPnBoEfSHOqRdi4SWSVFE3bLvYmoIm4LG3XnWR4gBjfWP5hQLrweppJf9dV1w3CI2skBirjdA9Hr5nbCcw0MdN7xmUh7C9N/4Xvg+3HUUiKyS0sTuU+xavSwAYbnJ+pNARUkPFAiyDweIirEWMkX7HnKJPWykBBn4Xoac8l82MVCaUBrZuPt3K7PH4zKFvKwnuHdQFi5j+WWVrc2s7we8g3+1YvY7bXk+b1TIB57IvBnGAUYVU0OmOBn2/ZPooo/gd2DWUdTC68JeXRoGBxobRRhYdNfFQQVRhTgiXjMQaPJgUgOu1b20eaqK7kt/ng6nHQN/Lw7cw5HO42W8yhBr6IPFzr/V4b9xXshZzdSq09iUjk=
+  on:
+    tags: true
+    repo: sealink/printers_qt
