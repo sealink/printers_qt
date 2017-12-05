@@ -16,11 +16,9 @@
   },
   "repository": "@sealink/printers_qt",
   "keywords": [
-    "es6",
-    "modules",
-    "rollup",
-    "bundle",
-    "browser"
+    "quicktravel",
+    "printing",
+    "tickets"
   ],
   "author": "John Mortlock",
   "license": "MIT",
