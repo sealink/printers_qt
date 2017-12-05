@@ -1,5 +1,5 @@
 {
-  "name": "printers_qt",
+  "name": "@sealink/printers_qt",
   "version": "0.1.0",
   "description": "Quicktravel Printing Integration",
   "main": "dist/printers_qt.js",
@@ -14,7 +14,7 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "prepublish": "BUILD=production npm test"
   },
-  "repository": "sealink/printers_qt",
+  "repository": "@sealink/printers_qt",
   "keywords": [
     "es6",
     "modules",
