@@ -78,3 +78,39 @@ describe('issue_and_print', () => {
     });
   });
 });
+
+describe('void', () => {
+  beforeEach(() => {
+    nock(host)
+      .post('/api/bookings/1/issued_tickets/void', {
+        issued_ticket_ids: [1, 2, 3],
+      })
+      .reply(200, { msg: 'Success' });
+
+    nock(host)
+      .post('/api/bookings/1/issued_tickets/void', {
+        issued_ticket_ids: [1, 2, 3],
+        authenticity_token: 'token',
+      })
+      .reply(200, { msg: 'SuccessWithToken' });
+  });
+
+  it('should void the tickets', (done) => {
+    const issuedTicketIds = [1, 2, 3];
+
+    new QuickTravelApi(host).voidTickets(bookingId, issuedTicketIds).then((response) => {
+      expect(response).to.deep.equal({ msg: 'Success' });
+      done();
+    });
+  });
+
+  it('should optionally provide a csrf token', (done) => {
+    const issuedTicketIds = [1, 2, 3];
+    const opts = { authenticity_token: 'token' };
+
+    new QuickTravelApi(host).voidTickets(bookingId, issuedTicketIds, opts).then((response) => {
+      expect(response).to.deep.equal({ msg: 'SuccessWithToken' });
+      done();
+    });
+  });
+});
