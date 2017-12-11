@@ -45,13 +45,13 @@ describe('printReservations', () => {
     ];
 
     nock(hosts.quicktravel)
-      .post('/api/bookings/1/issued_tickets/issue_and_print.json', {
+      .post('/api/bookings/1/issued_tickets/issue_and_print', {
         reservation_ids: [1, 2, 3],
         print_server_type: 'quickets',
       }).reply(200, issuedTickets);
 
     nock(hosts.quicktravel)
-      .post('/api/bookings/2/issued_tickets/issue_and_print.json', {
+      .post('/api/bookings/2/issued_tickets/issue_and_print', {
         reservation_ids: [1, 2, 3],
         print_server_type: 'quickets',
       }).reply(200, []);
