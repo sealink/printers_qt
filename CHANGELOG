@@ -2,6 +2,7 @@
 
 * [TT-3410] - Allowing passing the CSRF Token
 * [TT-3409] - Disable compression on quicktravel post requests
+* [TT-3413] - Address coverage
 
 ### 0.1.0
 
