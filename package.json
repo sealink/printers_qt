@@ -10,7 +10,7 @@
     "build": "rollup -c --environment BUILD:production",
     "watch": "rollup -c -w",
     "pretest": "rollup -c",
-    "test": "nyc mocha",
+    "test": "nyc report mocha",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "prepublish": "BUILD=production npm test"
   },
@@ -55,7 +55,7 @@
     "rollup": "^0.43.0",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-commonjs": "^8.2.6",
-    "rollup-plugin-istanbul": "^1.1.0",
+    "rollup-plugin-istanbul": "^2.0.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-watch": "^4.0.0"
   }
