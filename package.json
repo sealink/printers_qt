@@ -10,7 +10,7 @@
     "build": "rollup -c --environment BUILD:production",
     "watch": "rollup -c -w",
     "pretest": "rollup -c",
-    "test": "nyc report mocha",
+    "test": "nyc mocha",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "prepublish": "BUILD=production npm test"
   },
