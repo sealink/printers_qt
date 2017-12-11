@@ -1,3 +1,7 @@
 ### Unreleased
 
+* [TT-3410] - Allowing passing the CSRF Token
+
+### 0.1.0
+
 * [TT-3349] - Initial Release
