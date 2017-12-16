@@ -1,3 +1,7 @@
+### 0.2.1 Unreleased
+
+* [TT-3441] - Allow the additional "print-receipt" and "checkin" quicktravel parameters
+
 ### 0.2.0
 
 * [TT-3410] - Allowing passing the CSRF Token
