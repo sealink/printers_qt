@@ -1,6 +1,6 @@
 {
   "name": "@sealink/printers_qt",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Quicktravel Printing Integration",
   "main": "dist/printers_qt.js",
   "module": "dist/printers_qt.mjs",
