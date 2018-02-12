@@ -1,3 +1,8 @@
+### Unreleased
+
+* [TT-3615] - Send session cookie 
+
+
 ### 0.2.2
 
 * [TT-3604] - Use isomorphic-fetch rather than node-fetch
