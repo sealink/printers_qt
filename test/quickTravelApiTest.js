@@ -5,6 +5,24 @@ const { QuickTravelApi } = require('../dist/printers_qt');
 const host = 'http://127.0.0.1:8000';
 const bookingId = 1;
 
+describe('receipt', () => {
+  beforeEach(() => {
+    nock(host)
+      .post('/api/bookings/1/issued_tickets/reprint', {
+        print_receipt: true,
+        print_server_type: 'quickets',
+      })
+      .reply(200, { msg: 'Success' });
+    });
+
+  it('should print to the printer', (done) => {
+    new QuickTravelApi(host).printReceipt(bookingId).then((response) => {
+      expect(response).to.deep.equal({ msg: 'Success' });
+      done();
+    });
+  });
+});
+
 describe('reprint', () => {
   beforeEach(() => {
     nock(host)
