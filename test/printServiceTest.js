@@ -2,14 +2,19 @@ const nock = require('nock');
 const { expect } = require('chai');
 const { PrintService } = require('../dist/printers_qt');
 
-const hosts = {
-  quicktravel: 'http://127.0.0.1:8000',
-  config: 'http://127.0.0.1:8001',
+const config = {
+  quicktravel: {
+    host: 'http://127.0.0.1:8000',
+    csrfToken: '123'
+  },
+  config: {
+    host: 'http://127.0.0.1:8001'
+  },
 };
 
 describe('voidTickets', () => {
   beforeEach(() => {
-    nock(hosts.quicktravel)
+    nock(config.quicktravel.host, { reqHeaders: { 'x-csrf-Token': '123' } })
       .post('/api/bookings/1/issued_tickets/void', {
         issued_ticket_ids: [1, 2, 3],
       })
@@ -20,7 +25,7 @@ describe('voidTickets', () => {
     const issuedTicketIds = [1, 2, 3];
     const bookingId = 1;
 
-    const printService = new PrintService(hosts);
+    const printService = new PrintService(config);
     printService.voidTickets(bookingId, issuedTicketIds).then((response) => {
       expect(response).to.deep.equal({ msg: 'Success' });
       done();
@@ -30,7 +35,7 @@ describe('voidTickets', () => {
 
 describe('voidTickets', () => {
   beforeEach(() => {
-    nock(hosts.quicktravel)
+    nock(config.quicktravel.host, { reqHeaders: { 'x-csrf-Token': '123' } })
       .post('/api/bookings/1/issued_tickets/void', {
         issued_ticket_ids: [1, 2, 3],
       })
@@ -41,7 +46,7 @@ describe('voidTickets', () => {
     const issuedTicketIds = [1, 2, 3];
     const bookingId = 1;
 
-    const printService = new PrintService(hosts);
+    const printService = new PrintService(config);
     printService.voidTickets(bookingId, issuedTicketIds).then((response) => {
       expect(response).to.deep.equal({ msg: 'Success' });
       done();
@@ -72,7 +77,7 @@ describe('reprint', () => {
         dimensions: [],
       },
     ];
-    nock(hosts.config)
+    nock(config.config.host)
       .get('/print_groups/1/printers')
       .reply(200, response);
 
@@ -98,7 +103,7 @@ describe('reprint', () => {
             width: 105,
             height: 57,
           },
-        }).reply(200, { msg: 'Success' });      
+        }).reply(200, { msg: 'Success' });
 
     const issuedTickets = [
       {
@@ -110,7 +115,7 @@ describe('reprint', () => {
       },
     ];
 
-    nock(hosts.quicktravel)
+    nock(config.quicktravel.host, { reqHeaders: { 'x-csrf-Token': '123' } })
       .post('/api/bookings/1/issued_tickets/reprint', {
         issued_ticket_ids: [1, 2, 3],
         print_server_type: 'quickets',
@@ -123,7 +128,7 @@ describe('reprint', () => {
     const printGroupId = 1;
     const bookingId = 1;
 
-    const printService = new PrintService(hosts);
+    const printService = new PrintService(config);
     printService.reprintTickets(printGroupId, bookingId, issuedTicketIds).then((response) => {
       expect(response).to.eq(true);
       done();
@@ -154,7 +159,7 @@ describe('printReservations', () => {
         dimensions: [],
       },
     ];
-    nock(hosts.config)
+    nock(config.config.host)
       .get('/print_groups/1/printers')
       .reply(200, response);
 
@@ -168,13 +173,13 @@ describe('printReservations', () => {
       },
     ];
 
-    nock(hosts.quicktravel)
+    nock(config.quicktravel.host, { reqHeaders: { 'x-csrf-Token': '123' } })
       .post('/api/bookings/1/issued_tickets/issue_and_print', {
         reservation_ids: [1, 2, 3],
         print_server_type: 'quickets',
       }).reply(200, issuedTickets);
 
-    nock(hosts.quicktravel)
+    nock(config.quicktravel.host, { reqHeaders: { 'x-csrf-Token': '123' } })
       .post('/api/bookings/2/issued_tickets/issue_and_print', {
         reservation_ids: [1, 2, 3],
         print_server_type: 'quickets',
@@ -210,7 +215,7 @@ describe('printReservations', () => {
     const printGroupId = 1;
     const bookingId = 1;
 
-    const printService = new PrintService(hosts);
+    const printService = new PrintService(config);
     printService.printReservations(printGroupId, bookingId, reservationIds).then((response) => {
       expect(response).to.eq(true);
       done();
@@ -222,7 +227,7 @@ describe('printReservations', () => {
     const printGroupId = 1;
     const bookingId = 2;
 
-    const printService = new PrintService(hosts);
+    const printService = new PrintService(config);
     printService.printReservations(printGroupId, bookingId, reservationIds).then((response) => {
       expect(response).to.eq(false);
       done();
