@@ -1,3 +1,9 @@
+### 1.0.0
+
+* [TT-4538] - Support CORS in Quicktravel
+* [TT-4538] - Rename Quickets to Quickprint
+* [TT-4538] - Add ability to print receipts
+
 ### 0.2.3
 
 * [TT-3615] - Send session cookie
