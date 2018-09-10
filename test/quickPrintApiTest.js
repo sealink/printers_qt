@@ -23,9 +23,9 @@ const pageFormat = {
 
 describe('errors', () => {
   beforeEach(() => {
-    nock('http://cups-pdf.quicktravel.com.au')
+    nock('http://cups-pdf.quicktravel.com.au', { reqHeaders: { 'x-api-key': '123456789' } })
       .post('/print-tickets')
-      .reply(500, { msg: 'Success' });
+      .reply(500, { msg: 'Failed' });
   });
 
   it('should print to the printer', (done) => {
@@ -38,7 +38,7 @@ describe('errors', () => {
 
 describe('printToPrinter', () => {
   beforeEach(() => {
-    nock('http://cups-pdf.quicktravel.com.au')
+    nock('http://cups-pdf.quicktravel.com.au', { reqHeaders: { 'x-api-key': '123456789' } })
       .post('/print-tickets')
       .reply(200, { msg: 'Success' });
   });
