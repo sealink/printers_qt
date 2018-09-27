@@ -16,10 +16,10 @@ const config = {
 describe('configuration', () => {
   it('should have configurable print_server_type', (done) => {
     const printService = new PrintService(config);
-    expect(printService.qt_print_server_type).to.not.exist;
+    expect(printService.print_server_type).to.not.exist;
 
-    const printService2 = new PrintService({ quicktravel: config.quicktravel, config: { host: config.config.host, qt_print_server_type: 'crickets' } });
-    expect(printService2.qt_print_server_type).to.equal('crickets');
+    const printService2 = new PrintService({ quicktravel: config.quicktravel, config: { host: config.config.host, print_server_type: 'crickets' } });
+    expect(printService2.print_server_type).to.equal('crickets');
 
     done();
   });
