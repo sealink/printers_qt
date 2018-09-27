@@ -1,3 +1,7 @@
+### Unreleased
+
+* [TT-4615] - Support configurable print server type
+
 ### 1.0.0
 
 * [TT-4538] - Support CORS in Quicktravel
