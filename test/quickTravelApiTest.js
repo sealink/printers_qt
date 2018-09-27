@@ -132,3 +132,17 @@ describe('void', () => {
     });
   });
 });
+
+
+describe('defaults and config', () => {
+  it('should have configurable print_server_type', (done) => {
+    const api = new QuickTravelApi(host);
+    expect(api.print_server_type).to.equal('quickets');
+
+    const api2 = new QuickTravelApi(host, 'token', 'crickets');
+    expect(api2.print_server_type).to.equal('crickets');
+
+    done();
+  });
+
+});
