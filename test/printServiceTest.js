@@ -12,6 +12,19 @@ const config = {
   },
 };
 
+
+describe('configuration', () => {
+  it('should have configurable print_server_type', (done) => {
+    const printService = new PrintService(config);
+    expect(printService.print_server_type).to.not.exist;
+
+    const printService2 = new PrintService({ quicktravel: config.quicktravel, config: { host: config.config.host, print_server_type: 'crickets' } });
+    expect(printService2.print_server_type).to.equal('crickets');
+
+    done();
+  });
+});
+
 describe('voidTickets', () => {
   beforeEach(() => {
     nock(config.quicktravel.host, { reqHeaders: { 'x-csrf-Token': '123' } })
