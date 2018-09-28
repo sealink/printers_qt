@@ -1,28 +1,135 @@
 const nock = require('nock');
 const { expect } = require('chai');
-const { PrintService } = require('../dist/printers_qt');
+const { PrintService, QUICKETS_SERVER_TYPE, ALBERT_SERVER_TYPE } = require('../dist/printers_qt');
 
 const config = {
   quicktravel: {
     host: 'http://127.0.0.1:8000',
-    csrfToken: '123'
+    csrfToken: '123',
   },
   config: {
-    host: 'http://127.0.0.1:8001'
+    host: 'http://127.0.0.1:8001',
   },
 };
 
+const printersResponse =
+    [
+      {
+        id: 1,
+        description: '_DO_NOT_PRINT',
+        server: {
+          host: 'https://cups-pdf.quicktravel.com.au',
+          api_key: 'some_random_key',
+        },
+        dimensions: [],
+      },
+      {
+        id: 2,
+        description: 'PDF',
+        server: {
+          host: 'https://cups-pdf.quicktravel.com.au',
+          api_key: 'some_random_key',
+        },
+        dimensions: [],
+      },
+    ];
+
+const issuedTickets = [{ tickets: [], page_format: { width: 105, height: 57 } }];
+
 
 describe('configuration', () => {
+  beforeEach(() => {
+    nock(config.quicktravel.host, { reqHeaders: { 'x-csrf-Token': '123' } })
+      .post('/api/bookings/1/issued_tickets/reprint')
+      .reply(200, issuedTickets);
+
+    nock(config.quicktravel.host, { reqHeaders: { 'x-csrf-Token': '123' } })
+      .post('/api/bookings/1/issued_tickets/reprint', {
+        print_receipt: true,
+        print_server_type: 'albert',
+      })
+      .reply(200, issuedTickets);
+
+    nock(config.config.host)
+      .get('/print_groups/1/printers')
+      .reply(200, printersResponse);
+  });
+
+  afterEach(() => {
+    nock.cleanAll();
+  });
+
   it('should have configurable print_server_type', (done) => {
     const printService = new PrintService(config);
-    expect(printService.print_server_type).to.not.exist;
+    expect(printService.printServerType).to.equal(QUICKETS_SERVER_TYPE);
 
-    const printService2 = new PrintService({ quicktravel: config.quicktravel, config: { host: config.config.host, print_server_type: 'crickets' } });
-    expect(printService2.print_server_type).to.equal('crickets');
+    const printService2 = new PrintService({ quicktravel: config.quicktravel, config: { host: config.config.host, printServerType: ALBERT_SERVER_TYPE } });
+    expect(printService2.printServerType).to.equal(ALBERT_SERVER_TYPE);
 
     done();
   });
+
+  it('should call "/print-tickets" for QUICKETS_SERVER_TYPE', (done) =>  {
+    const printGroupId = 1;
+    const bookingId = 1;
+
+    const printService = new PrintService(config);
+
+    nock('https://cups-pdf.quicktravel.com.au', { reqHeaders: { 'x-csrf-Token': '123' } })
+      .post('/print-tickets', {
+        printer_name: 'PDF',
+        printer: 2,
+        api_key: 'some_random_key',
+        tickets: [],
+        page_format: {
+          width: 105,
+          height: 57,
+        },
+      })
+      .reply(200, { msg: 'Success' });
+
+    nock('https://cups-pdf.quicktravel.com.au')
+      .post('/print-tickets', {
+        printer_name: '_DO_NOT_PRINT',
+        printer: 1,
+        api_key: 'some_random_key',
+        tickets: [],
+        page_format: {
+          width: 105,
+          height: 57,
+        },
+      }).reply(200, { msg: 'Success' });
+
+    printService.printReceipt(printGroupId, bookingId).then((response) => {
+      expect(response).to.eq(true);
+      done();
+    });
+  });
+
+  it('should not call "/print-tickets" for ALBERT_SERVER_TYPE', (done) =>  {
+    const printGroupId = 1;
+    const bookingId = 1;
+
+    const receiptPrintService = new PrintService({ quicktravel: config.quicktravel, config: { host: config.config.host, printServerType: ALBERT_SERVER_TYPE } });
+
+    nock('https://cups-pdf.quicktravel.com.au', { reqHeaders: { 'x-csrf-Token': '123' } })
+      .post('/print-receipts', {
+        printer_name: 'PDF',
+        tickets: [],
+      })
+      .reply(200, { msg: 'Success' });
+
+    nock('https://cups-pdf.quicktravel.com.au')
+      .post('/print-receipts', {
+        printer_name: '_DO_NOT_PRINT',
+        tickets: [],
+      }).reply(200, { msg: 'Success' });
+
+    receiptPrintService.printReceipt(printGroupId, bookingId).then((response) => {
+      expect(response).to.eq(true);
+      done();
+    });
+  });
 });
 
 describe('voidTickets', () => {
@@ -42,7 +149,7 @@ describe('voidTickets', () => {
     printService.voidTickets(bookingId, issuedTicketIds).then((response) => {
       expect(response).to.deep.equal({ msg: 'Success' });
       done();
-    }).catch((err) => console.log(err));
+    });
   });
 });
 
@@ -63,7 +170,7 @@ describe('voidTickets', () => {
     printService.voidTickets(bookingId, issuedTicketIds).then((response) => {
       expect(response).to.deep.equal({ msg: 'Success' });
       done();
-    }).catch((err) => console.log(err));
+    });
   });
 });
 
@@ -94,39 +201,29 @@ describe('reprint', () => {
       .get('/print_groups/1/printers')
       .reply(200, response);
 
-      nock('https://cups-pdf.quicktravel.com.au')
-        .post('/print-tickets', {
-          printer_name: '_DO_NOT_PRINT',
-          printer: 1,
-          api_key: 'some_random_key',
-          tickets: [],
-          page_format: {
-            width: 105,
-            height: 57,
-          },
-        }).reply(200, { msg: 'Success' });
-
-      nock('https://cups-pdf.quicktravel.com.au')
-        .post('/print-tickets', {
-          printer_name: 'PDF',
-          printer: 2,
-          api_key: 'some_random_key',
-          tickets: [],
-          page_format: {
-            width: 105,
-            height: 57,
-          },
-        }).reply(200, { msg: 'Success' });
-
-    const issuedTickets = [
-      {
+    nock('https://cups-pdf.quicktravel.com.au')
+      .post('/print-tickets', {
+        printer_name: '_DO_NOT_PRINT',
+        printer: 1,
+        api_key: 'some_random_key',
         tickets: [],
         page_format: {
           width: 105,
           height: 57,
         },
-      },
-    ];
+      }).reply(200, { msg: 'Success' });
+
+    nock('https://cups-pdf.quicktravel.com.au')
+      .post('/print-tickets', {
+        printer_name: 'PDF',
+        printer: 2,
+        api_key: 'some_random_key',
+        tickets: [],
+        page_format: {
+          width: 105,
+          height: 57,
+        },
+      }).reply(200, { msg: 'Success' });
 
     nock(config.quicktravel.host, { reqHeaders: { 'x-csrf-Token': '123' } })
       .post('/api/bookings/1/issued_tickets/reprint', {
@@ -142,10 +239,11 @@ describe('reprint', () => {
     const bookingId = 1;
 
     const printService = new PrintService(config);
+
     printService.reprintTickets(printGroupId, bookingId, issuedTicketIds).then((response) => {
       expect(response).to.eq(true);
       done();
-    }).catch( (err) => console.log(err) );
+    });
   });
 });
 
@@ -176,39 +274,29 @@ describe('print-receipt', () => {
       .get('/print_groups/1/printers')
       .reply(200, response);
 
-      nock('https://cups-pdf.quicktravel.com.au')
-        .post('/print-tickets', {
-          printer_name: '_DO_NOT_PRINT',
-          printer: 1,
-          api_key: 'some_random_key',
-          tickets: [],
-          page_format: {
-            width: 105,
-            height: 57,
-          },
-        }).reply(200, { msg: 'Success' });
-
-      nock('https://cups-pdf.quicktravel.com.au')
-        .post('/print-tickets', {
-          printer_name: 'PDF',
-          printer: 2,
-          api_key: 'some_random_key',
-          tickets: [],
-          page_format: {
-            width: 105,
-            height: 57,
-          },
-        }).reply(200, { msg: 'Success' });
-
-    const issuedTickets = [
-      {
+    nock('https://cups-pdf.quicktravel.com.au')
+      .post('/print-tickets', {
+        printer_name: '_DO_NOT_PRINT',
+        printer: 1,
+        api_key: 'some_random_key',
         tickets: [],
         page_format: {
           width: 105,
           height: 57,
         },
-      },
-    ];
+      }).reply(200, { msg: 'Success' });
+
+    nock('https://cups-pdf.quicktravel.com.au')
+      .post('/print-tickets', {
+        printer_name: 'PDF',
+        printer: 2,
+        api_key: 'some_random_key',
+        tickets: [],
+        page_format: {
+          width: 105,
+          height: 57,
+        },
+      }).reply(200, { msg: 'Success' });
 
     nock(config.quicktravel.host, { reqHeaders: { 'x-csrf-Token': '123' } })
       .post('/api/bookings/1/issued_tickets/reprint', {
@@ -219,7 +307,6 @@ describe('print-receipt', () => {
   });
 
   it('should print to the printer', (done) => {
-    const issuedTicketIds = [1, 2, 3];
     const printGroupId = 1;
     const bookingId = 1;
 
@@ -227,7 +314,7 @@ describe('print-receipt', () => {
     printService.printReceipt(printGroupId, bookingId).then((response) => {
       expect(response).to.eq(true);
       done();
-    }).catch( (err) => console.log(err) );
+    });
   });
 });
 
@@ -257,16 +344,6 @@ describe('printReservations', () => {
     nock(config.config.host)
       .get('/print_groups/1/printers')
       .reply(200, response);
-
-    const issuedTickets = [
-      {
-        tickets: [],
-        page_format: {
-          width: 105,
-          height: 57,
-        },
-      },
-    ];
 
     nock(config.quicktravel.host, { reqHeaders: { 'x-csrf-Token': '123' } })
       .post('/api/bookings/1/issued_tickets/issue_and_print', {

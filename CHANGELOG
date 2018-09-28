@@ -1,6 +1,7 @@
 ### Unreleased
 
 * [TT-4615] - Support configurable print server type
+* [TT-4621] - Add new endpoint '/print-receipt'
 
 ### 1.0.0
 
