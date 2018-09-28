@@ -1,3 +1,7 @@
+### Unreleased
+
+* [TT-4627] - Force albert to always print receipts
+
 ### 1.1.1
 
 * [TT-4529] - Handle albert ticket return
