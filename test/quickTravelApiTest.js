@@ -13,7 +13,7 @@ describe('receipt', () => {
         print_server_type: 'quickets',
       })
       .reply(200, { msg: 'Success' });
-    });
+  });
 
   it('should print to the printer', (done) => {
     new QuickTravelApi(host).printReceipt(bookingId).then((response) => {
@@ -137,12 +137,11 @@ describe('void', () => {
 describe('defaults and config', () => {
   it('should have configurable print_server_type', (done) => {
     const api = new QuickTravelApi(host);
-    expect(api.print_server_type).to.equal('quickets');
+    expect(api.printServerType).to.equal('quickets');
 
     const api2 = new QuickTravelApi(host, 'token', 'crickets');
-    expect(api2.print_server_type).to.equal('crickets');
+    expect(api2.printServerType).to.equal('crickets');
 
     done();
   });
-
 });
