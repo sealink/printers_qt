@@ -1,3 +1,7 @@
+### Unreleased
+
+* [TT-4915] - Add ability to issue tickets without printing
+
 ### 1.1.2
 
 * [TT-4627] - Force albert to always print receipts
