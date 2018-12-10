@@ -39,7 +39,7 @@ const service = new PrintService(config)
 * reprintTickets
 * printReceipt
 * issueAndPrint
-* issue
+* issueTickets
 
 ### QuickPrint
 
