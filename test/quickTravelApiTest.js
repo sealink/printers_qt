@@ -63,6 +63,25 @@ describe('reprint', () => {
   });
 });
 
+describe('issue', () => {
+  const reservation_ids = 'All';
+
+  beforeEach(() => {
+    nock(host)
+      .post('/api/bookings/1/issued_tickets', {
+        reservation_ids: 'All',
+      })
+      .reply(200, { msg: 'Success' });
+  });
+
+  it('should issue tickets', (done) => {
+    new QuickTravelApi(host).issueTickets(bookingId, reservation_ids).then((response) => {
+      expect(response).to.deep.equal({ msg: 'Success' });
+      done();
+    });
+  })
+});
+
 describe('issue_and_print', () => {
   const reservationIds = [100, 2, 300];
   beforeEach(() => {

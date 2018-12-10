@@ -26,6 +26,7 @@ const service = new PrintService(config)
 ```
 
 * printTickets
+* issueTickets
 * voidTickets
 * printReservations
 * reprintTickets
@@ -38,6 +39,7 @@ const service = new PrintService(config)
 * reprintTickets
 * printReceipt
 * issueAndPrint
+* issue
 
 ### QuickPrint
 
