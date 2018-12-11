@@ -174,6 +174,44 @@ describe('voidTickets', () => {
   });
 });
 
+describe('issueTickets', () => {
+  beforeEach(() => {
+    nock(config.quicktravel.host, { reqHeaders: { 'x-csrf-Token': '123' } })
+      .post('/api/bookings/1/issued_tickets', {
+        reservation_ids: [1, 2, 3],
+      })
+      .reply(200, { msg: 'Success' });
+
+      nock(config.quicktravel.host, { reqHeaders: { 'x-csrf-Token': '123' } })
+        .post('/api/bookings/2/issued_tickets', {
+          reservation_ids: [1, 2, 3],
+        })
+        .reply(500, { msg: 'Internal Server Error' });
+  });
+
+  it('should issue the tickets', (done) => {
+    const reservationIds = [1, 2, 3];
+    const bookingId = 1;
+
+    const printService = new PrintService(config);
+    printService.issueTickets(bookingId, reservationIds).then((response) => {
+      expect(response).to.deep.equal({ msg: 'Success' });
+      done();
+    });
+  });
+
+  it('should handle failures when issue the tickets', (done) => {
+    const reservationIds = [1, 2, 3];
+    const bookingId = 2;
+
+    const printService = new PrintService(config);
+    printService.issueTickets(bookingId, reservationIds).catch((err) => {
+      expect(err.response.status).to.eq(500);
+      done();
+    });
+  });
+});
+
 describe('reprint', () => {
   beforeEach(() => {
     const response =

@@ -63,6 +63,38 @@ describe('reprint', () => {
   });
 });
 
+describe('issue', () => {
+  const reservation_ids = 'All';
+
+  beforeEach(() => {
+    nock(host)
+      .post('/api/bookings/1/issued_tickets', {
+        reservation_ids: 'All',
+      })
+      .reply(200, { msg: 'Success' });
+
+      nock(host)
+        .post('/api/bookings/2/issued_tickets', {
+          reservation_ids: 'All',
+        })
+        .reply(500, { msg: 'Internal Server Error' });
+  });
+
+  it('should issue tickets', (done) => {
+    new QuickTravelApi(host).issueTickets(1, reservation_ids).then((response) => {
+      expect(response).to.deep.equal({ msg: 'Success' });
+      done();
+    });
+  })
+
+  it('should handle failures when issue tickets', (done) => {
+    new QuickTravelApi(host).issueTickets(2, reservation_ids).catch((err) => {
+      expect(err.response.status).to.eq(500);
+      done();
+    });
+  })
+});
+
 describe('issue_and_print', () => {
   const reservationIds = [100, 2, 300];
   beforeEach(() => {
