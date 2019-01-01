@@ -19,7 +19,7 @@ if (process.env.BUILD !== 'production') {
 export default {
   entry: 'lib/index.js',
   plugins: plugins,
-  external: ['node-fetch', 'regenerator-runtime/runtime'],
+  external: ['isomorphic-fetch', 'regenerator-runtime/runtime'],
   globals: {
    'node-fetch': 'fetch',
  },
