@@ -1,4 +1,4 @@
-### Unreleased
+### 1.2.0
 
 * [TT-4915] - Add ability to issue tickets without printing
 * [TT-4958] - Change require to import for isomorphic-fetch
