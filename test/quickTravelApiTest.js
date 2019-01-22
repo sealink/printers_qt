@@ -101,7 +101,7 @@ describe('issue_and_print', () => {
     nock(host)
       .post('/api/bookings/1/issued_tickets/issue_and_print', {
         print_receipt: false,
-        reservation_ids: [100, 2, 300],
+        reservation_ids: reservationIds,
         print_server_type: 'quickets',
       })
       .reply(200, { msg: 'Success' });
@@ -109,11 +109,26 @@ describe('issue_and_print', () => {
     nock(host)
       .post('/api/bookings/1/issued_tickets/issue_and_print', {
         print_receipt: false,
-        reservation_ids: [100, 2, 300],
+        reservation_ids: reservationIds,
         print_server_type: 'quickets',
         authenticity_token: 'token',
       })
       .reply(200, { msg: 'SuccessWithToken' });
+
+    nock(host)
+      .post('/api/bookings/2/issued_tickets/issue_and_print', {
+        print_receipt: false,
+        reservation_ids: reservationIds,
+        print_server_type: 'quickets'
+      })
+      .reply(422, { error: 'Balance must be paid to issue tickets' });
+  });
+
+  it('should handle validation errors', (done) => {
+    new QuickTravelApi(host).issueAndPrint(2, reservationIds).catch((err) => {
+      expect(err.message).to.eq('Balance must be paid to issue tickets');
+      done();
+    });
   });
 
   it('should print to the printer', (done) => {
