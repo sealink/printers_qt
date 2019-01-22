@@ -1,3 +1,7 @@
+### 1.2.1
+
+* [TT-5042] - Handle 422 validation errors
+
 ### 1.2.0
 
 * [TT-4915] - Add ability to issue tickets without printing
