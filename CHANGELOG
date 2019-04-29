@@ -1,3 +1,7 @@
+### Unreleased
+
+* [TT-5422] - Add validate endpoint
+
 ### 1.2.1
 
 * [TT-5042] - Handle 422 validation errors
