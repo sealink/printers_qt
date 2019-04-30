@@ -153,27 +153,6 @@ describe('voidTickets', () => {
   });
 });
 
-describe('voidTickets', () => {
-  beforeEach(() => {
-    nock(config.quicktravel.host, { reqHeaders: { 'x-csrf-Token': '123' } })
-      .post('/api/bookings/1/issued_tickets/void', {
-        issued_ticket_ids: [1, 2, 3],
-      })
-      .reply(200, { msg: 'Success' });
-  });
-
-  it('should void the tickets', (done) => {
-    const issuedTicketIds = [1, 2, 3];
-    const bookingId = 1;
-
-    const printService = new PrintService(config);
-    printService.voidTickets(bookingId, issuedTicketIds).then((response) => {
-      expect(response).to.deep.equal({ msg: 'Success' });
-      done();
-    });
-  });
-});
-
 describe('issueTickets', () => {
   beforeEach(() => {
     nock(config.quicktravel.host, { reqHeaders: { 'x-csrf-Token': '123' } })
