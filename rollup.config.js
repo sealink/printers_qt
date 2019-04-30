@@ -12,7 +12,7 @@ let plugins = [
 
 if (process.env.BUILD !== 'production') {
   plugins.push(istanbul({
-    exclude: ['test/**/*', 'node_modules/**/*']
+    exclude: ['test/**/*', 'node_modules/**/*', 'lib/**/*']
   }));
 }
 
