@@ -184,6 +184,46 @@ describe('void', () => {
   });
 });
 
+describe('validate', () => {
+  beforeEach(() => {
+    nock(host)
+      .post('/api/issued_tickets/validate', {
+        identifier: 123,
+      })
+      .reply(200, { ticket: 'TICKET GOES HERE' });
+
+    nock(host)
+      .post('/api/issued_tickets/validate', {
+        identifier: 321,
+      })
+      .reply(422, { error: 'ERROR GOES HERE' });
+  });
+
+  it('should validate the ticket', (done) => {
+    const identifier = 123;
+
+    new QuickTravelApi(host).validateTicket(identifier).then((response) => {
+      expect(response).to.deep.equal( { ticket: 'TICKET GOES HERE' });
+      done();
+    });
+  });
+
+  it('should return an error if the ticket is invalid', (done) => {
+    const identifier = 321;
+
+    new QuickTravelApi(host).validateTicket(identifier)
+    .then((response) => {
+      fail('Should never be called')
+      done();
+    })
+    .catch((err) => {
+      expect(err.response.status).to.eq(422);
+      done();
+    });
+  });
+});
+
+
 describe('defaults and config', () => {
   it('should have configurable print_server_type', (done) => {
     const api = new QuickTravelApi(host);
