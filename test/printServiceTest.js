@@ -191,6 +191,79 @@ describe('issueTickets', () => {
   });
 });
 
+describe('issuedTickets', () => {
+  beforeEach(() => {
+    nock(config.quicktravel.host)
+      .get('/api/issued_tickets/barcodes/12345')
+      .reply(200, { ticket: 'TICKET GOES HERE' });
+
+    nock(config.quicktravel.host)
+      .get('/api/issued_tickets/barcodes/54321')
+      .reply(404, { error: 'ERROR GOES HERE' });
+  });
+
+  it('should retreive the ticket', (done) => {
+    const identifier = 12345;
+    const printService = new PrintService(config);
+    printService.issuedTicket(identifier).then((response) => {
+      expect(response).to.deep.equal( { ticket: 'TICKET GOES HERE' });
+      done();
+    });
+  });
+
+  it('should handle failures when tickets are not found', (done) => {
+    const identifier = 54321;
+    const printService = new PrintService(config);
+    printService.issuedTicket(identifier).then((response) => {
+      fail('Should never be called');
+      done();
+    })
+    .catch((err) => {
+      expect(err.response.status).to.eq(404);
+      done();
+    });
+  });
+});
+
+describe('validate', () => {
+  beforeEach(() => {
+    nock(config.quicktravel.host)
+      .post('/api/issued_tickets/validate', {
+        identifier: 123,
+      })
+      .reply(200, { ticket: 'TICKET GOES HERE' });
+
+    nock(config.quicktravel.host)
+      .post('/api/issued_tickets/validate', {
+        identifier: 321,
+      })
+      .reply(422, { error: 'ERROR GOES HERE' });
+  });
+
+  it('should validate the ticket', (done) => {
+    const identifier = 123;
+    const printService = new PrintService(config);
+    printService.validateTicket(identifier).then((response) => {
+      expect(response).to.deep.equal({ ticket: 'TICKET GOES HERE' });
+      done();
+    });
+  });
+
+  it('should return an error if the ticket is invalid', (done) => {
+    const identifier = 321;
+    const printService = new PrintService(config);
+    printService.validateTicket(identifier)
+    .then((response) => {
+      fail('Should never be called')
+      done();
+    })
+    .catch((err) => {
+      expect(err.response.status).to.eq(422);
+      done();
+    });
+  });
+});
+
 describe('reprint', () => {
   beforeEach(() => {
     const response =
