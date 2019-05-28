@@ -3029,8 +3029,8 @@ rollup-plugin-commonjs@^8.2.6:
     rollup-pluginutils "^2.0.1"
 
 rollup-plugin-istanbul@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-istanbul/-/rollup-plugin-istanbul-2.0.0.tgz#47a2d7eaf27297fe3c5f36b1decd70791ae8b026"
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-istanbul/-/rollup-plugin-istanbul-2.0.1.tgz#f562d378b4082855ef035e63c04d9ee1bd601c20"
   dependencies:
     istanbul-lib-instrument "^1.9.1"
     rollup-pluginutils "^2.0.1"
