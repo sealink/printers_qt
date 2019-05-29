@@ -2,6 +2,7 @@
 
 * [TT-5422] - Add validate endpoint
 * [TT-5444] - Add issued_tickets/barcodes endpoint
+* [TT-5525] - Update JS dependencies
 
 ### 1.2.1
 
