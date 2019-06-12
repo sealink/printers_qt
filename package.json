@@ -52,7 +52,7 @@
     "mocha": "^3.2.0",
     "nock": "^10.0.6",
     "nyc": "^14.1.1",
-    "rollup": "^0.43.0",
+    "rollup": "^1.15.1",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-istanbul": "^2.0.0",
