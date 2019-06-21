@@ -1,19 +1,19 @@
 language: node_js
 node_js:
-- '6'
-- '8'
-- '10'
+  - "6"
+  - "8"
+  - "10"
 after_success: yarn coverage
 jobs:
   include:
     - stage: npm release
-      node_js: 8
+      node_js: 10
       script: echo "Deploying to npm ..."
       deploy:
         provider: npm
         email: support@travellink.com.au
         skip_cleanup: true
-        node: '8.0'
+        node: "10.0"
         api_key:
           secure: NR0ygQBD8PJSJCYYkTikrZBx8otZHzFgGySLmjnMAwHIKbTsbelwPt0NAmupYnPNG3CbDxU16WHNYVeI8jToJtV7JWdnqY9jL+MA2DfqbUBdMKjgf2LncH0EZ2GyqCxvhFgNOoZWUdIcAE8u6dC4wLWGmO6sI2MLsu7by3UVNFx8l0iPpQJIi8yz+kTPa7OIdoKBT+APM8dYMDns7cZsr9OFYrv68ycy+tDOo3umHKkqrqy6NTsivJIeay5px+B+53c80CWq6JesXG90DVAmcWN/Bqao0d1xjhOyXK4IKTxVZbG/Lk5zR9necYvcVT9BwNJ6qCr27CyPtBDkdtHoiDV2avd8BA2pLKAaOeN1V9D0T0SySkOIgkqObAz/a9bzGoGXfozIo+MVcyIXGVIiiI6qsZS0N6ExyV0xL+Y7nrC+8I+t5zi6Pf5x3dRqAWWBH6pwZDUvfdMg8nznuh80oBZVyQKz2tqRNJXIWOv5h66CJ+z4BCD1llpgX/RcUL7KHbThorpZOVIhHlKpCTDubQRZaSXQFHN3TEjk3QY9WSC2O0l1rwKclXlxWFRo4CMKYyVG025iJDwRGdw2wGu6tspKT2AXPMw9zoj/6I0fq+SN3yivY94SaVv5lw1JTCxKk2wMeaTI8zbV+RXalYfSjRN1PL0Q+qWpz29sruzuExo=
         on:

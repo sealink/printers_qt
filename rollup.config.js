@@ -1,38 +1,40 @@
-import babel from 'rollup-plugin-babel';
-import istanbul from 'rollup-plugin-istanbul';
+import babel from "rollup-plugin-babel";
+import istanbul from "rollup-plugin-istanbul";
 
-let pkg = require('./package.json');
+let pkg = require("./package.json");
 
 let plugins = [
   babel({
-    exclude: 'node_modules/**',
+    exclude: "node_modules/**",
     plugins: ["external-helpers"]
   })
 ];
 
-if (process.env.BUILD !== 'production') {
-  plugins.push(istanbul({
-    exclude: ['test/**/*', 'node_modules/**/*', 'lib/**/*']
-  }));
+if (process.env.BUILD !== "production") {
+  plugins.push(
+    istanbul({
+      exclude: ["test/**/*", "node_modules/**/*", "lib/**/*"]
+    })
+  );
 }
 
 export default {
-  entry: 'lib/index.js',
+  entry: "lib/index.js",
   plugins: plugins,
-  external: ['isomorphic-fetch', 'regenerator-runtime/runtime'],
+  external: ["isomorphic-fetch", "regenerator-runtime/runtime"],
   globals: {
-   'node-fetch': 'fetch',
- },
+    "node-fetch": "fetch"
+  },
   targets: [
     {
       dest: pkg.main,
-      format: 'umd',
-      moduleName: 'printers-qt',
+      format: "umd",
+      moduleName: "printers-qt",
       sourceMap: true
     },
     {
       dest: pkg.module,
-      format: 'es',
+      format: "es",
       sourceMap: true
     }
   ]

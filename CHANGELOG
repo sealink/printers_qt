@@ -1,3 +1,7 @@
+### Unreleased
+
+* [TT-5645] - Change credentials to "include" for GET requests
+
 ### 1.3.0
 
 * [TT-5422] - Add validate endpoint
