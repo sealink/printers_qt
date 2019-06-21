@@ -1,4 +1,4 @@
-### Unreleased
+### 1.4.0
 
 * [TT-5645] - Change credentials to "include" for GET requests
 
