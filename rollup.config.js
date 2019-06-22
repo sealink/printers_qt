@@ -19,22 +19,25 @@ if (process.env.BUILD !== "production") {
 }
 
 export default {
-  entry: "lib/index.js",
+  input: "lib/index.js",
   plugins: plugins,
   external: ["isomorphic-fetch", "regenerator-runtime/runtime"],
-  globals: {
-    "node-fetch": "fetch"
-  },
-  targets: [
+  output: [
     {
-      dest: pkg.main,
+      file: pkg.main,
       format: "umd",
-      moduleName: "printers-qt",
+      name: "printers-qt",
+      globals: {
+        "node-fetch": "fetch"
+      },
       sourceMap: true
     },
     {
-      dest: pkg.module,
+      file: pkg.module,
       format: "es",
+      globals: {
+        "node-fetch": "fetch"
+      },
       sourceMap: true
     }
   ]
