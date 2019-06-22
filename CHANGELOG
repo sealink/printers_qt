@@ -1,3 +1,7 @@
+### Unrleased
+
+* [TT-5649] - Update Rollup and Mocha to latest versions
+
 ### 1.4.0
 
 * [TT-5645] - Change credentials to "include" for GET requests
