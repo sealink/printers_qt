@@ -1,3 +1,7 @@
+### Unreleased
+
+* [TT-5645] - Use "include" credentials only on QT GET requests.
+
 ### 1.4.0
 
 * [TT-5645] - Change credentials to "include" for GET requests
