@@ -1,4 +1,4 @@
-### Unreleased
+### 1.5.0
 
 * [TT-5645] - Use "include" credentials only on QT GET requests.
 * [TT-5649] - Update Rollup and Mocha to latest versions
