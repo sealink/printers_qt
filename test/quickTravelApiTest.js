@@ -27,7 +27,6 @@ describe("reprint", () => {
   beforeEach(() => {
     nock(host)
       .post("/api/bookings/1/issued_tickets/reprint", {
-        print_receipt: false,
         issued_ticket_ids: [1, 2, 3],
         print_server_type: "quickets"
       })
@@ -35,7 +34,6 @@ describe("reprint", () => {
 
     nock(host)
       .post("/api/bookings/1/issued_tickets/reprint", {
-        print_receipt: false,
         issued_ticket_ids: [1, 2, 3],
         print_server_type: "quickets",
         authenticity_token: "token"
@@ -104,7 +102,6 @@ describe("issue_and_print", () => {
   beforeEach(() => {
     nock(host)
       .post("/api/bookings/1/issued_tickets/issue_and_print", {
-        print_receipt: false,
         reservation_ids: reservationIds,
         print_server_type: "quickets"
       })
@@ -112,7 +109,6 @@ describe("issue_and_print", () => {
 
     nock(host)
       .post("/api/bookings/1/issued_tickets/issue_and_print", {
-        print_receipt: false,
         reservation_ids: reservationIds,
         print_server_type: "quickets",
         authenticity_token: "token"
@@ -121,7 +117,6 @@ describe("issue_and_print", () => {
 
     nock(host)
       .post("/api/bookings/2/issued_tickets/issue_and_print", {
-        print_receipt: false,
         reservation_ids: reservationIds,
         print_server_type: "quickets"
       })
