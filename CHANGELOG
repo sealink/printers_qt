@@ -1,3 +1,7 @@
+## 1.6.1
+
+* [TT-5660] - Fix version in package
+
 ### 1.6.0
 
 * [TT-5660] - Quickets printers now support printing receipts
