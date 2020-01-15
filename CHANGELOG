@@ -1,3 +1,7 @@
+## Unreleased
+
+* [TT-6689] - Update babel to version 7
+
 ## 1.6.1
 
 * [TT-5660] - Fix version in package
