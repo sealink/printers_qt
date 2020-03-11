@@ -18,7 +18,8 @@ const config = {
     csrfToken: 'token'
   },
   config: {
-    host: 'hostName'
+    host: 'hostName',
+    bearerToken, 'bearerToken'
   }
 }
 

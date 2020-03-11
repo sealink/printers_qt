@@ -12,7 +12,8 @@ const config = {
     csrfToken: "123"
   },
   config: {
-    host: "http://127.0.0.1:8001"
+    host: "http://127.0.0.1:8001",
+    bearerToken: "bearerToken"
   }
 };
 
@@ -69,7 +70,11 @@ describe("configuration", () => {
 
     const printService2 = new PrintService({
       quicktravel: config.quicktravel,
-      config: { host: config.config.host, printServerType: ALBERT_SERVER_TYPE }
+      config: {
+        host: config.config.host,
+        bearerToken: config.config.bearerToken,
+        printServerType: ALBERT_SERVER_TYPE
+      }
     });
     expect(printService2.printServerType).to.equal(ALBERT_SERVER_TYPE);
 
@@ -122,7 +127,11 @@ describe("configuration", () => {
 
     const receiptPrintService = new PrintService({
       quicktravel: config.quicktravel,
-      config: { host: config.config.host, printServerType: ALBERT_SERVER_TYPE }
+      config: {
+        host: config.config.host,
+        bearerToken: config.config.bearerToken,
+        printServerType: ALBERT_SERVER_TYPE
+      }
     });
 
     nock("https://cups-pdf.quicktravel.com.au", {
