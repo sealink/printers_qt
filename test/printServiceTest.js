@@ -9,12 +9,16 @@ const {
 const config = {
   quicktravel: {
     host: "http://127.0.0.1:8000",
-    csrfToken: "123"
+    bearerToken: "bearerToken"
   },
   config: {
     host: "http://127.0.0.1:8001",
     bearerToken: "bearerToken"
   }
+};
+
+const reqHeaders = {
+  Authorization: `Bearer ${config.quicktravel.bearerToken}`
 };
 
 const printersResponse = [
@@ -44,11 +48,11 @@ const issuedTickets = [
 
 describe("configuration", () => {
   beforeEach(() => {
-    nock(config.quicktravel.host, { reqHeaders: { "x-csrf-Token": "123" } })
+    nock(config.quicktravel.host, { reqHeaders: reqHeaders })
       .post("/api/bookings/1/issued_tickets/reprint")
       .reply(200, issuedTickets);
 
-    nock(config.quicktravel.host, { reqHeaders: { "x-csrf-Token": "123" } })
+    nock(config.quicktravel.host, { reqHeaders: reqHeaders })
       .post("/api/bookings/1/issued_tickets/reprint", {
         print_receipt: true,
         print_server_type: "albert"
@@ -88,7 +92,7 @@ describe("configuration", () => {
     const printService = new PrintService(config);
 
     nock("https://cups-pdf.quicktravel.com.au", {
-      reqHeaders: { "x-csrf-Token": "123" }
+      reqHeaders: reqHeaders
     })
       .post("/print-tickets", {
         printer_name: "PDF",
@@ -135,7 +139,7 @@ describe("configuration", () => {
     });
 
     nock("https://cups-pdf.quicktravel.com.au", {
-      reqHeaders: { "x-csrf-Token": "123" }
+      reqHeaders: reqHeaders
     })
       .post("/print-receipts", {
         printer_name: "PDF",
@@ -159,7 +163,7 @@ describe("configuration", () => {
 
 describe("voidTickets", () => {
   beforeEach(() => {
-    nock(config.quicktravel.host, { reqHeaders: { "x-csrf-Token": "123" } })
+    nock(config.quicktravel.host, { reqHeaders: reqHeaders })
       .post("/api/bookings/1/issued_tickets/void", {
         issued_ticket_ids: [1, 2, 3]
       })
@@ -180,13 +184,13 @@ describe("voidTickets", () => {
 
 describe("issueTickets", () => {
   beforeEach(() => {
-    nock(config.quicktravel.host, { reqHeaders: { "x-csrf-Token": "123" } })
+    nock(config.quicktravel.host, { reqHeaders: reqHeaders })
       .post("/api/bookings/1/issued_tickets", {
         reservation_ids: [1, 2, 3]
       })
       .reply(200, { msg: "Success" });
 
-    nock(config.quicktravel.host, { reqHeaders: { "x-csrf-Token": "123" } })
+    nock(config.quicktravel.host, { reqHeaders: reqHeaders })
       .post("/api/bookings/2/issued_tickets", {
         reservation_ids: [1, 2, 3]
       })
@@ -344,7 +348,7 @@ describe("reprint", () => {
       })
       .reply(200, { msg: "Success" });
 
-    nock(config.quicktravel.host, { reqHeaders: { "x-csrf-Token": "123" } })
+    nock(config.quicktravel.host, { reqHeaders: reqHeaders })
       .post("/api/bookings/1/issued_tickets/reprint", {
         issued_ticket_ids: [1, 2, 3],
         print_server_type: "quickets"
@@ -420,7 +424,7 @@ describe("print-receipt", () => {
       })
       .reply(200, { msg: "Success" });
 
-    nock(config.quicktravel.host, { reqHeaders: { "x-csrf-Token": "123" } })
+    nock(config.quicktravel.host, { reqHeaders: reqHeaders })
       .post("/api/bookings/1/issued_tickets/reprint", {
         print_receipt: true,
         print_server_type: "quickets"
@@ -466,14 +470,14 @@ describe("printReservations", () => {
       .get("/print_groups/1/printers")
       .reply(200, response);
 
-    nock(config.quicktravel.host, { reqHeaders: { "x-csrf-Token": "123" } })
+    nock(config.quicktravel.host, { reqHeaders: reqHeaders })
       .post("/api/bookings/1/issued_tickets/issue_and_print", {
         reservation_ids: [1, 2, 3],
         print_server_type: "quickets"
       })
       .reply(200, issuedTickets);
 
-    nock(config.quicktravel.host, { reqHeaders: { "x-csrf-Token": "123" } })
+    nock(config.quicktravel.host, { reqHeaders: reqHeaders })
       .post("/api/bookings/2/issued_tickets/issue_and_print", {
         reservation_ids: [1, 2, 3],
         print_server_type: "quickets"
