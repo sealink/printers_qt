@@ -1,4 +1,4 @@
-## 1.8.0 Unreleased
+## 1.8.0
 
 * [TT-7002] - Remove support for CSRF token.  Added support for Bearer token
 
