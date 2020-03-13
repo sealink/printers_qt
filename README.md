@@ -15,10 +15,11 @@ QuickTravel API endpoints require a CSRF token you must provide as a constructor
 const config = {
   quicktravel: {
     host: 'hostName',
-    csrfToken: 'token'
+    bearerToken: 'bearerToken'
   },
   config: {
-    host: 'hostName'
+    host: 'hostName',
+    bearerToken: 'bearerToken'
   }
 }
 
