@@ -37,7 +37,7 @@
   ],
   "homepage": "https://github.com/sealink/printers_qt#readme",
   "dependencies": {
-    "isomorphic-fetch": "^2.2.1",
+    "isomorphic-fetch": "^3.0.0",
     "regenerator-runtime": "^0.13.2"
   },
   "devDependencies": {
