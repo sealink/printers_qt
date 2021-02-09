@@ -1,6 +1,6 @@
 ## unrelease
 
-* [TT-8847] - Convert non-array input in quicktravelApi to be array
+* [TT-8847] - Convert non-array input issuedTicketIds in quicktravelApi to be array
 
 ## 1.8.0
 
