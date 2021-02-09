@@ -11,7 +11,7 @@
     "watch": "rollup -c -w",
     "pretest": "rollup -c",
     "test": "nyc mocha",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "coverage": "nyc report --reporter=lcov",
     "prepublish": "BUILD=production npm test"
   },
   "lint-staged": {
