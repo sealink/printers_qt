@@ -1,7 +1,6 @@
 [![npm version](https://badge.fury.io/js/%40sealink%2Fprinters_qt.svg)](https://badge.fury.io/js/%40sealink%2Fprinters_qt)
 [![Coverage Status](https://coveralls.io/repos/github/sealink/printers_qt/badge.svg?branch=master)](https://coveralls.io/github/sealink/printers_qt?branch=master)
-[![Build Status](https://travis-ci.org/sealink/printers_qt.svg?branch=master)](https://travis-ci.org/sealink/printers_qt)
-
+[![Build Status](https://github.com/sealink/printers_qt/workflows/Build%20and%20Test/badge.svg?branch=master)](https://github.com/sealink/printers_qt/actions)
 ### Why
 
 Provides a wrapper api which hides the underlying printing services in QuickTravel.
