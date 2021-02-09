@@ -16,4 +16,4 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - run: npm ci
       - run: npm run test
-        run: npm run coverage
+      - run: npm run coverage
