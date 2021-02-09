@@ -157,14 +157,14 @@ describe("void", () => {
       .post("/api/bookings/1/issued_tickets/void", {
         issued_ticket_ids: [1, 2, 3]
       })
-      .reply(200, { msg: "Success" });
+      .reply(204);
 
     nock(host)
       .post("/api/bookings/1/issued_tickets/void", {
         issued_ticket_ids: [1, 2, 3],
         authenticity_token: "token"
       })
-      .reply(200, { msg: "SuccessWithToken" });
+      .reply(204);
   });
 
   it("should void the tickets", done => {
@@ -173,7 +173,7 @@ describe("void", () => {
     new QuickTravelApi(host)
       .voidTickets(bookingId, issuedTicketIds)
       .then(response => {
-        expect(response).to.deep.equal({ msg: "Success" });
+        expect(response).to.deep.equal({});
         done();
       });
   });
@@ -185,7 +185,7 @@ describe("void", () => {
     new QuickTravelApi(host)
       .voidTickets(bookingId, issuedTicketIds, opts)
       .then(response => {
-        expect(response).to.deep.equal({ msg: "SuccessWithToken" });
+        expect(response).to.deep.equal({});
         done();
       });
   });
