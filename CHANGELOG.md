@@ -1,6 +1,7 @@
 ## Unreleased
 
 * [TT-8837] - Allow http 204 response code to be parsed.
+* [TT-8852] - Migrate to github actions
 
 ## 1.8.0
 
