@@ -66,18 +66,18 @@ describe("reprint", () => {
 });
 
 describe("issue", () => {
-  const reservation_ids = "All";
+  const reservation_ids = ["All"];
 
   beforeEach(() => {
     nock(host)
       .post("/api/bookings/1/issued_tickets", {
-        reservation_ids: "All"
+        reservation_ids: ["All"]
       })
       .reply(200, { msg: "Success" });
 
     nock(host)
       .post("/api/bookings/2/issued_tickets", {
-        reservation_ids: "All"
+        reservation_ids: ["All"]
       })
       .reply(500, { msg: "Internal Server Error" });
   });

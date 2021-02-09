@@ -1,3 +1,7 @@
+## unrelease
+
+* [TT-8847] - Convert non-array input in quicktravelApi to be array
+
 ## 1.8.0
 
 * [TT-7002] - Remove support for CSRF token.  Added support for Bearer token
