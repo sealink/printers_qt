@@ -1,4 +1,4 @@
-## Unreleased
+## 1.9.0
 
 * [TT-8847] - Convert non-array input issuedTicketIds in quicktravelApi to be array
 * [TT-8837] - Allow http 204 response code to be parsed.
