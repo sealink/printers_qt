@@ -1,5 +1,7 @@
 ## Unreleased
 
+* [TT-8859] - Reverse the order of merging body and opts params in the makeRequest
+
 ## 1.9.0
 
 * [TT-8847] - Convert non-array input issuedTicketIds in quicktravelApi to be array
