@@ -63,6 +63,20 @@ describe("reprint", () => {
         done();
       });
   });
+
+  it("should not overwrite default params", done => {
+    const issuedTicketIds = [1, 2, 3];
+    const opts = { authenticity_token: "token",
+                   print_server_type: "not quickets",
+                   issued_ticket_ids: [1, 2] };
+
+    new QuickTravelApi(host)
+      .reprintTickets(bookingId, issuedTicketIds, opts)
+      .then(response => {
+        expect(response).to.deep.equal({ msg: "SuccessWithToken" });
+        done();
+      });
+  });
 });
 
 describe("issue", () => {
@@ -149,6 +163,19 @@ describe("issue_and_print", () => {
         done();
       });
   });
+
+  it("should not overwrite default params", done => {
+    const opts = { authenticity_token: "token",
+                   print_server_type: "not quickets",
+                   reservation_ids: [1, 2] };
+
+    new QuickTravelApi(host)
+      .issueAndPrint(bookingId, reservationIds, opts)
+      .then(response => {
+        expect(response).to.deep.equal({ msg: "SuccessWithToken" });
+        done();
+      });
+  });
 });
 
 describe("void", () => {
@@ -162,6 +189,13 @@ describe("void", () => {
     nock(host)
       .post("/api/bookings/1/issued_tickets/void", {
         issued_ticket_ids: [1, 2, 3],
+        authenticity_token: "token"
+      })
+      .reply(204);
+
+    nock(host)
+      .post("/api/bookings/1/issued_tickets/void", {
+        issued_ticket_ids: [1],
         authenticity_token: "token"
       })
       .reply(204);
@@ -182,6 +216,18 @@ describe("void", () => {
     const issuedTicketIds = [1, 2, 3];
     const opts = { authenticity_token: "token" };
 
+    new QuickTravelApi(host)
+      .voidTickets(bookingId, issuedTicketIds, opts)
+      .then(response => {
+        expect(response).to.deep.equal({});
+        done();
+      });
+  });
+
+  it("should not overwrite default params", done => {
+    const issuedTicketIds = 1;
+    const opts = { authenticity_token: "token",
+                   issued_ticket_ids: [1, 2] };
     new QuickTravelApi(host)
       .voidTickets(bookingId, issuedTicketIds, opts)
       .then(response => {
