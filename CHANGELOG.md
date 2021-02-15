@@ -1,3 +1,5 @@
+## Unreleased
+
 ## 1.10.0
 
 * [TT-8859] - Reverse the order of merging body and opts params in the makeRequest
