@@ -1,6 +1,14 @@
 const nock = require("nock");
 const { expect } = require("chai");
 const { QuickTravelApi } = require("../dist/printers_qt");
+const sinon = require("sinon");
+const uuid = require("uuid");
+const {
+  CONSUMER_SPLIT_BARCODE,
+  RESERVATION_BARCODE,
+  CONSUMER_SPLIT_SCAN,
+  RESERVATION_SCAN
+} = require("./fixture/sampleBarcodes");
 
 const host = "http://127.0.0.1:8000";
 const bookingId = 1;
@@ -322,5 +330,33 @@ describe("defaults and config", () => {
     expect(api2.printServerType).to.equal("crickets");
 
     done();
+  });
+});
+
+describe("wrap tickets", () => {
+  it("should convert tickets to be server scans", done => {
+
+    const tickets = [ CONSUMER_SPLIT_BARCODE, RESERVATION_BARCODE ];
+    sinon.stub(uuid, 'v4').callsFake(()=> '1');
+    const expects = [ CONSUMER_SPLIT_SCAN, RESERVATION_SCAN ];
+    const results = new QuickTravelApi(host).wrapTickets(tickets);
+    expect(results).to.deep.equal(expects);
+
+    done();
+  });
+});
+
+describe("board server scans", () => {
+  beforeEach(() => {
+    nock(host)
+      .post("/api/issued_tickets/board")
+      .reply(200, [{ id: '1', status: 200, diff: [] }]);
+  });
+
+  it("should call issued ticket board path with serverScans", done => {
+    new QuickTravelApi(host).boardServerScans([{ id: '1'}]).then(response => {
+      expect(response).to.deep.equal([{ id: '1', status: 200, diff: [] }]);
+      done();
+    });
   });
 });
