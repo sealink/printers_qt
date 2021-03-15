@@ -38,7 +38,9 @@
   "homepage": "https://github.com/sealink/printers_qt#readme",
   "dependencies": {
     "isomorphic-fetch": "^3.0.0",
-    "regenerator-runtime": "^0.13.2"
+    "regenerator-runtime": "^0.13.2",
+    "sinon": "^9.2.4",
+    "uuid": "^3.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",

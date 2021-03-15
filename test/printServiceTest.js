@@ -5,6 +5,7 @@ const {
   QUICKETS_SERVER_TYPE,
   ALBERT_SERVER_TYPE
 } = require("../dist/printers_qt");
+const { QuickTravelApi } = require("../dist/printers_qt");
 
 const config = {
   quicktravel: {
@@ -537,5 +538,22 @@ describe("printReservations", () => {
         expect(response).to.eq(false);
         done();
       });
+  });
+});
+
+describe("boardTickets", () => {
+  beforeEach(() => {
+    const response = [{ id: '1', status: 200, diff: [] }];
+    nock(config.quicktravel.host)
+      .post("/api/issued_tickets/board")
+      .reply(200, response);
+  });
+
+  it("should call wrapTickets and boardServerScans from quicktravelApi", done => {
+    const printService = new PrintService(config);
+    printService.boardTickets([{ id: '1'}]).then(response => {
+      expect(response).to.deep.equal([{ id: '1', status: 200, diff: [] }]);
+      done();
+    });
   });
 });
