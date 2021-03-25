@@ -1,7 +1,5 @@
 const nock = require("nock");
-const { expect } = require("chai");
 const { QuickTravelApi } = require("../dist/printers_qt");
-const sinon = require("sinon");
 const uuid = require("uuid");
 const {
   CONSUMER_SPLIT_BARCODE,
@@ -12,6 +10,7 @@ const {
 
 const host = "http://127.0.0.1:8000";
 const bookingId = 1;
+jest.mock('uuid/v4');
 
 describe("receipt", () => {
   beforeEach(() => {
@@ -25,7 +24,7 @@ describe("receipt", () => {
 
   it("should print to the printer", done => {
     new QuickTravelApi(host).printReceipt(bookingId).then(response => {
-      expect(response).to.deep.equal({ msg: "Success" });
+      expect(response).toEqual({ msg: "Success" });
       done();
     });
   });
@@ -55,7 +54,7 @@ describe("reprint", () => {
     new QuickTravelApi(host)
       .reprintTickets(bookingId, issuedTicketIds)
       .then(response => {
-        expect(response).to.deep.equal({ msg: "Success" });
+        expect(response).toEqual({ msg: "Success" });
         done();
       });
   });
@@ -67,7 +66,7 @@ describe("reprint", () => {
     new QuickTravelApi(host)
       .reprintTickets(bookingId, issuedTicketIds, opts)
       .then(response => {
-        expect(response).to.deep.equal({ msg: "SuccessWithToken" });
+        expect(response).toEqual({ msg: "SuccessWithToken" });
         done();
       });
   });
@@ -81,7 +80,7 @@ describe("reprint", () => {
     new QuickTravelApi(host)
       .reprintTickets(bookingId, issuedTicketIds, opts)
       .then(response => {
-        expect(response).to.deep.equal({ msg: "SuccessWithToken" });
+        expect(response).toEqual({ msg: "SuccessWithToken" });
         done();
       });
   });
@@ -106,14 +105,14 @@ describe("issue", () => {
 
   it("should issue tickets", done => {
     new QuickTravelApi(host).issueTickets(1, reservation_ids).then(response => {
-      expect(response).to.deep.equal({ msg: "Success" });
+      expect(response).toEqual({ msg: "Success" });
       done();
     });
   });
 
   it("should handle failures when issue tickets", done => {
     new QuickTravelApi(host).issueTickets(2, reservation_ids).catch(err => {
-      expect(err.response.status).to.eq(500);
+      expect(err.response.status).toEqual(500);
       done();
     });
   });
@@ -147,7 +146,7 @@ describe("issue_and_print", () => {
 
   it("should handle validation errors", done => {
     new QuickTravelApi(host).issueAndPrint(2, reservationIds).catch(err => {
-      expect(err.message).to.eq("Balance must be paid to issue tickets");
+      expect(err.message).toEqual("Balance must be paid to issue tickets");
       done();
     });
   });
@@ -156,7 +155,7 @@ describe("issue_and_print", () => {
     new QuickTravelApi(host)
       .issueAndPrint(bookingId, reservationIds)
       .then(response => {
-        expect(response).to.deep.equal({ msg: "Success" });
+        expect(response).toEqual({ msg: "Success" });
         done();
       });
   });
@@ -167,7 +166,7 @@ describe("issue_and_print", () => {
     new QuickTravelApi(host)
       .issueAndPrint(bookingId, reservationIds, opts)
       .then(response => {
-        expect(response).to.deep.equal({ msg: "SuccessWithToken" });
+        expect(response).toEqual({ msg: "SuccessWithToken" });
         done();
       });
   });
@@ -180,7 +179,7 @@ describe("issue_and_print", () => {
     new QuickTravelApi(host)
       .issueAndPrint(bookingId, reservationIds, opts)
       .then(response => {
-        expect(response).to.deep.equal({ msg: "SuccessWithToken" });
+        expect(response).toEqual({ msg: "SuccessWithToken" });
         done();
       });
   });
@@ -215,7 +214,7 @@ describe("void", () => {
     new QuickTravelApi(host)
       .voidTickets(bookingId, issuedTicketIds)
       .then(response => {
-        expect(response).to.deep.equal({});
+        expect(response).toEqual({});
         done();
       });
   });
@@ -227,7 +226,7 @@ describe("void", () => {
     new QuickTravelApi(host)
       .voidTickets(bookingId, issuedTicketIds, opts)
       .then(response => {
-        expect(response).to.deep.equal({});
+        expect(response).toEqual({});
         done();
       });
   });
@@ -239,7 +238,7 @@ describe("void", () => {
     new QuickTravelApi(host)
       .voidTickets(bookingId, issuedTicketIds, opts)
       .then(response => {
-        expect(response).to.deep.equal({});
+        expect(response).toEqual({});
         done();
       });
   });
@@ -264,7 +263,7 @@ describe("validate", () => {
     const identifier = 123;
 
     new QuickTravelApi(host).validateTicket(identifier).then(response => {
-      expect(response).to.deep.equal({ ticket: "TICKET GOES HERE" });
+      expect(response).toEqual({ ticket: "TICKET GOES HERE" });
       done();
     });
   });
@@ -279,7 +278,7 @@ describe("validate", () => {
         done();
       })
       .catch(err => {
-        expect(err.response.status).to.eq(422);
+        expect(err.response.status).toEqual(422);
         done();
       });
   });
@@ -300,7 +299,7 @@ describe("issued_ticket", () => {
     const identifier = 12345;
 
     new QuickTravelApi(host).issuedTicket(identifier).then(response => {
-      expect(response).to.deep.equal({ ticket: "TICKET GOES HERE" });
+      expect(response).toEqual({ ticket: "TICKET GOES HERE" });
       done();
     });
   });
@@ -315,7 +314,7 @@ describe("issued_ticket", () => {
         done();
       })
       .catch(err => {
-        expect(err.response.status).to.eq(404);
+        expect(err.response.status).toEqual(404);
         done();
       });
   });
@@ -324,10 +323,10 @@ describe("issued_ticket", () => {
 describe("defaults and config", () => {
   it("should have configurable print_server_type", done => {
     const api = new QuickTravelApi(host);
-    expect(api.printServerType).to.equal("quickets");
+    expect(api.printServerType).toEqual("quickets");
 
     const api2 = new QuickTravelApi(host, "token", "crickets");
-    expect(api2.printServerType).to.equal("crickets");
+    expect(api2.printServerType).toEqual("crickets");
 
     done();
   });
@@ -335,12 +334,11 @@ describe("defaults and config", () => {
 
 describe("wrap tickets", () => {
   it("should convert tickets to be server scans", done => {
-
     const tickets = [ CONSUMER_SPLIT_BARCODE, RESERVATION_BARCODE ];
-    sinon.stub(uuid, 'v4').callsFake(()=> '1');
+    uuid.mockImplementation(() => '1')
     const expects = [ CONSUMER_SPLIT_SCAN, RESERVATION_SCAN ];
     const results = new QuickTravelApi(host).wrapTickets(tickets);
-    expect(results).to.deep.equal(expects);
+    expect(results).toEqual(expects);
 
     done();
   });
@@ -355,7 +353,7 @@ describe("board server scans", () => {
 
   it("should call issued ticket board path with serverScans", done => {
     new QuickTravelApi(host).boardServerScans([{ id: '1'}]).then(response => {
-      expect(response).to.deep.equal([{ id: '1', status: 200, diff: [] }]);
+      expect(response).toEqual([{ id: '1', status: 200, diff: [] }]);
       done();
     });
   });

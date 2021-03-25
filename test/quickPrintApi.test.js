@@ -1,5 +1,4 @@
 const nock = require("nock");
-const { expect } = require("chai");
 const { print, QUICKETS_SERVER_TYPE } = require("../dist/printers_qt");
 
 const printer = {
@@ -32,7 +31,7 @@ describe("errors", () => {
 
   it("should print to the printer", done => {
     print(printer, pageFormat, QUICKETS_SERVER_TYPE).catch(err => {
-      expect(err.response.status).to.eq(500);
+      expect(err.response.status).toEqual(500);
       done();
     });
   });
@@ -49,7 +48,7 @@ describe("printToPrinter", () => {
 
   it("should print to the printer", done => {
     print(printer, pageFormat, QUICKETS_SERVER_TYPE).then(response => {
-      expect(response).to.deep.equal({ msg: "Success" });
+      expect(response).toEqual({ msg: "Success" });
       done();
     });
   });
