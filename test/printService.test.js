@@ -1,5 +1,4 @@
 const nock = require("nock");
-const { expect } = require("chai");
 const {
   PrintService,
   QUICKETS_SERVER_TYPE,
@@ -71,7 +70,7 @@ describe("configuration", () => {
 
   it("should have configurable print_server_type", done => {
     const printService = new PrintService(config);
-    expect(printService.printServerType).to.equal(QUICKETS_SERVER_TYPE);
+    expect(printService.printServerType).toEqual(QUICKETS_SERVER_TYPE);
 
     const printService2 = new PrintService({
       quicktravel: config.quicktravel,
@@ -81,7 +80,7 @@ describe("configuration", () => {
         printServerType: ALBERT_SERVER_TYPE
       }
     });
-    expect(printService2.printServerType).to.equal(ALBERT_SERVER_TYPE);
+    expect(printService2.printServerType).toEqual(ALBERT_SERVER_TYPE);
 
     done();
   });
@@ -121,7 +120,7 @@ describe("configuration", () => {
       .reply(200, { msg: "Success" });
 
     printService.printReceipt(printGroupId, bookingId).then(response => {
-      expect(response).to.eq(true);
+      expect(response).toEqual(true);
       done();
     });
   });
@@ -156,7 +155,7 @@ describe("configuration", () => {
       .reply(200, { msg: "Success" });
 
     receiptPrintService.printReceipt(printGroupId, bookingId).then(response => {
-      expect(response).to.eq(true);
+      expect(response).toEqual(true);
       done();
     });
   });
@@ -177,7 +176,7 @@ describe("voidTickets", () => {
 
     const printService = new PrintService(config);
     printService.voidTickets(bookingId, issuedTicketIds).then(response => {
-      expect(response).to.deep.equal({ msg: "Success" });
+      expect(response).toEqual({ msg: "Success" });
       done();
     });
   });
@@ -204,7 +203,7 @@ describe("issueTickets", () => {
 
     const printService = new PrintService(config);
     printService.issueTickets(bookingId, reservationIds).then(response => {
-      expect(response).to.deep.equal({ msg: "Success" });
+      expect(response).toEqual({ msg: "Success" });
       done();
     });
   });
@@ -215,7 +214,7 @@ describe("issueTickets", () => {
 
     const printService = new PrintService(config);
     printService.issueTickets(bookingId, reservationIds).catch(err => {
-      expect(err.response.status).to.eq(500);
+      expect(err.response.status).toEqual(500);
       done();
     });
   });
@@ -236,7 +235,7 @@ describe("issuedTickets", () => {
     const identifier = 12345;
     const printService = new PrintService(config);
     printService.issuedTicket(identifier).then(response => {
-      expect(response).to.deep.equal({ ticket: "TICKET GOES HERE" });
+      expect(response).toEqual({ ticket: "TICKET GOES HERE" });
       done();
     });
   });
@@ -251,7 +250,7 @@ describe("issuedTickets", () => {
         done();
       })
       .catch(err => {
-        expect(err.response.status).to.eq(404);
+        expect(err.response.status).toEqual(404);
         done();
       });
   });
@@ -276,7 +275,7 @@ describe("validate", () => {
     const identifier = 123;
     const printService = new PrintService(config);
     printService.validateTicket(identifier).then(response => {
-      expect(response).to.deep.equal({ ticket: "TICKET GOES HERE" });
+      expect(response).toEqual({ ticket: "TICKET GOES HERE" });
       done();
     });
   });
@@ -291,7 +290,7 @@ describe("validate", () => {
         done();
       })
       .catch(err => {
-        expect(err.response.status).to.eq(422);
+        expect(err.response.status).toEqual(422);
         done();
       });
   });
@@ -367,7 +366,7 @@ describe("reprint", () => {
     printService
       .reprintTickets(printGroupId, bookingId, issuedTicketIds)
       .then(response => {
-        expect(response).to.eq(true);
+        expect(response).toEqual(true);
         done();
       });
   });
@@ -439,7 +438,7 @@ describe("print-receipt", () => {
 
     const printService = new PrintService(config);
     printService.printReceipt(printGroupId, bookingId).then(response => {
-      expect(response).to.eq(true);
+      expect(response).toEqual(true);
       done();
     });
   });
@@ -521,7 +520,7 @@ describe("printReservations", () => {
     printService
       .printReservations(printGroupId, bookingId, reservationIds)
       .then(response => {
-        expect(response).to.eq(true);
+        expect(response).toEqual(true);
         done();
       });
   });
@@ -535,7 +534,7 @@ describe("printReservations", () => {
     printService
       .printReservations(printGroupId, bookingId, reservationIds)
       .then(response => {
-        expect(response).to.eq(false);
+        expect(response).toEqual(false);
         done();
       });
   });
@@ -552,7 +551,7 @@ describe("boardTickets", () => {
   it("should call wrapTickets and boardServerScans from quicktravelApi", done => {
     const printService = new PrintService(config);
     printService.boardTickets([{ id: '1'}]).then(response => {
-      expect(response).to.deep.equal([{ id: '1', status: 200, diff: [] }]);
+      expect(response).toEqual([{ id: '1', status: 200, diff: [] }]);
       done();
     });
   });

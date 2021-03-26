@@ -1,4 +1,3 @@
-const { expect } = require("chai");
 const { findPrinters } = require("../dist/printers_qt");
 
 describe("findPrinters", () => {
@@ -16,15 +15,15 @@ describe("findPrinters", () => {
   const pageFormat = { length: 200, width: 200 };
   it("should return any printer without dimensions", () => {
     const matches = findPrinters(printers, pageFormat);
-    expect(matches).to.have.lengthOf(1);
-    expect(matches[0].description).to.eq("TEST 1");
+    expect(matches).toHaveLength(1);
+    expect(matches[0].description).toEqual("TEST 1");
   });
 
   it("should find specific printers", () => {
     const matches = findPrinters(printers, { length: 50, height: 300 });
-    expect(matches).to.have.lengthOf(2);
-    expect(matches[0].description).to.eq("TEST 1");
-    expect(matches[1].description).to.eq("TEST 2");
+    expect(matches).toHaveLength(2);
+    expect(matches[0].description).toEqual("TEST 1");
+    expect(matches[1].description).toEqual("TEST 2");
   });
 
   it("should find no matches if nothing matches", () => {
@@ -36,6 +35,6 @@ describe("findPrinters", () => {
       length: 50,
       height: 300
     });
-    expect(matches).to.have.lengthOf(0);
+    expect(matches).toHaveLength(0);
   });
 });
