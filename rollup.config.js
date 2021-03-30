@@ -1,12 +1,14 @@
 import babel from "rollup-plugin-babel";
 import istanbul from "rollup-plugin-istanbul";
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 let pkg = require("./package.json");
 
 let plugins = [
   babel({
     exclude: "node_modules/**"
-  })
+  }),
+  nodeResolve()
 ];
 
 if (process.env.BUILD !== "production") {
@@ -24,20 +26,20 @@ export default {
   output: [
     {
       file: pkg.main,
-      format: "umd",
+      format: "cjs",
       name: "printers-qt",
       globals: {
-        "node-fetch": "fetch"
+        "node-fetch": "fetch",
       },
-      sourceMap: true
+      sourcemap: true
     },
     {
       file: pkg.module,
       format: "es",
       globals: {
-        "node-fetch": "fetch"
+        "node-fetch": "fetch",
       },
-      sourceMap: true
+      sourcemap: true
     }
   ]
 };

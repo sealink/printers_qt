@@ -44,6 +44,7 @@
   "devDependencies": {
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
+    "@rollup/plugin-node-resolve": "^11.2.1",
     "babel-eslint": "^10.0.1",
     "coveralls": "^3.0.0",
     "eslint": "^7.2.0",
@@ -56,7 +57,8 @@
     "rollup": "^2.0.2",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.0.0",
-    "rollup-plugin-istanbul": "^3.0.0"
+    "rollup-plugin-istanbul": "^3.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0"
   },
   "husky": {
     "hooks": {
@@ -65,5 +67,10 @@
   },
   "engines": {
     "node": "^10 || ^12 || ^14"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "<rootDir>/test/setupTests.js"
+    ]
   }
 }

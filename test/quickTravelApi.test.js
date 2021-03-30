@@ -330,8 +330,10 @@ describe("defaults and config", () => {
   });
 });
 
-jest.mock('uuid', () => ({ v4: () => '1' }));
+// jest.mock('uuid', () => ({ v4: () => '1' }));
+
 describe("wrap tickets", () => {
+  jest.mock('QuickTravelApi.v4', () => '1');
   it("should convert tickets to be server scans", done => {
     const tickets = [ CONSUMER_SPLIT_BARCODE, RESERVATION_BARCODE ];
     const expects = [ CONSUMER_SPLIT_SCAN, RESERVATION_SCAN ];
