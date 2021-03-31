@@ -1,4 +1,4 @@
-const { findPrinters } = require("../dist/printers_qt");
+const { default: findPrinters } = require("../lib/printerMatcher");
 
 describe("findPrinters", () => {
   const printers = [

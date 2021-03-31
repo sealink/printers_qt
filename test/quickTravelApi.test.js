@@ -1,5 +1,5 @@
 const nock = require("nock");
-const { QuickTravelApi } = require("../dist/printers_qt");
+const { default: QuickTravelApi } = require("../lib/quicktravelApi");
 const {
   CONSUMER_SPLIT_BARCODE,
   RESERVATION_BARCODE,
@@ -9,6 +9,8 @@ const {
 
 const host = "http://127.0.0.1:8000";
 const bookingId = 1;
+const uuid = require("uuid")
+jest.mock('uuid'); 
 
 describe("receipt", () => {
   beforeEach(() => {
@@ -330,11 +332,9 @@ describe("defaults and config", () => {
   });
 });
 
-// jest.mock('uuid', () => ({ v4: () => '1' }));
-
 describe("wrap tickets", () => {
-  jest.mock('QuickTravelApi.v4', () => '1');
   it("should convert tickets to be server scans", done => {
+    uuid.v4.mockImplementation(() => '1');
     const tickets = [ CONSUMER_SPLIT_BARCODE, RESERVATION_BARCODE ];
     const expects = [ CONSUMER_SPLIT_SCAN, RESERVATION_SCAN ];
     const results = new QuickTravelApi(host).wrapTickets(tickets);

@@ -1,4 +1,4 @@
-const { ConfigApi } = require("../dist/printers_qt");
+const { default: ConfigApi } = require("../lib/configApi");
 const nock = require("nock");
 
 const host = "http://127.0.0.1:8000";

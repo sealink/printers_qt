@@ -1,5 +1,6 @@
 const nock = require("nock");
-const { print, QUICKETS_SERVER_TYPE } = require("../dist/printers_qt");
+const { QUICKETS_SERVER_TYPE } = require("../lib/constants");
+const { default: print } = require("../lib/quickPrintApi");
 
 const printer = {
   id: 1,

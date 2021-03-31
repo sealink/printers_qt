@@ -1,10 +1,7 @@
 const nock = require("nock");
-const {
-  PrintService,
-  QUICKETS_SERVER_TYPE,
-  ALBERT_SERVER_TYPE
-} = require("../dist/printers_qt");
-const { QuickTravelApi } = require("../dist/printers_qt");
+const { QUICKETS_SERVER_TYPE,
+        ALBERT_SERVER_TYPE } = require("../lib/constants");
+const { default: PrintService } = require("../lib/printService");
 
 const config = {
   quicktravel: {
