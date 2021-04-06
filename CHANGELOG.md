@@ -2,6 +2,7 @@
 
 * [TT-9025] - Expose issued_tickets board endpoint from qt
 * [TT-9099] - Convert from Mocha to Jest
+* [TT-9130] - Fix warnings and update tests
 
 ## 1.10.0
 
