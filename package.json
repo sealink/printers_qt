@@ -11,7 +11,9 @@
     "pretest": "rollup -c",
     "test": "jest",
     "coverage": "jest --coverage",
-    "prepublish": "BUILD=production npm test"
+    "prepublish": "BUILD=production npm test",
+    "prettier": "prettier --check \"**/*.{js,jsx,yml,scss,md}\"",
+    "prettier:write": "prettier --write \"**/*.{js,jsx,yml,scss,md}\""
   },
   "lint-staged": {
     "**/*.{js,jsx,yml,scss,md}": [

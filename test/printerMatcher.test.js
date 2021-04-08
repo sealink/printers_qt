@@ -4,12 +4,15 @@ describe("findPrinters", () => {
   const printers = [
     {
       description: "TEST 1",
-      dimensions: []
+      dimensions: [],
     },
     {
       description: "TEST 2",
-      dimensions: [{ length: 100, height: 200 }, { length: 50, height: 300 }]
-    }
+      dimensions: [
+        { length: 100, height: 200 },
+        { length: 50, height: 300 },
+      ],
+    },
   ];
 
   const pageFormat = { length: 200, width: 200 };
@@ -29,11 +32,11 @@ describe("findPrinters", () => {
   it("should find no matches if nothing matches", () => {
     const printersWithNoMatches = [
       { dimensions: [{ width: 0, height: 0 }] },
-      { dimensions: [{ width: 100, height: 50 }] }
+      { dimensions: [{ width: 100, height: 50 }] },
     ];
     const matches = findPrinters(printersWithNoMatches, {
       length: 50,
-      height: 300
+      height: 300,
     });
     expect(matches).toHaveLength(0);
   });

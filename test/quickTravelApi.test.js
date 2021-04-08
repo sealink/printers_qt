@@ -340,7 +340,7 @@ describe("defaults and config", () => {
 describe("board server scans", () => {
   beforeEach(() => {
     uuid.v4.mockImplementation(() => "uuid");
-    const expectedBody = { barcodes: [ { barcode: { id: 1 }, id: "uuid" } ] };
+    const expectedBody = { barcodes: [{ barcode: { id: 1 }, id: "uuid" }] };
 
     nock(host)
       .post("/api/issued_tickets/board", expectedBody)
@@ -350,11 +350,9 @@ describe("board server scans", () => {
   it("should call issued ticket board path with serverScans", (done) => {
     const scans = [{ barcode: { id: 1 }, id: "uuid" }];
 
-    new QuickTravelApi(host)
-      .boardServerScans(scans)
-      .then((response) => {
-        expect(response).toEqual([{ id: "1", status: 200, diff: [] }]);
-        done();
-      });
+    new QuickTravelApi(host).boardServerScans(scans).then((response) => {
+      expect(response).toEqual([{ id: "1", status: 200, diff: [] }]);
+      done();
+    });
   });
 });
