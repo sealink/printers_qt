@@ -1,7 +1,7 @@
 const CONSUMER_SPLIT_BARCODE = {
   id: 9,
   format: 0,
-  reference: "22222K",
+  reference: '22222K',
   reservation: {
     id: 3,
     booking_id: 12,
@@ -9,22 +9,22 @@ const CONSUMER_SPLIT_BARCODE = {
     route_id: null,
     service_id: null,
     departure_time: null,
-    departure_date: "2017-11-15",
+    departure_date: '2017-11-15',
   },
   resource: {
     id: 11,
-    name: "Rottnest Island Gift Voucher - Different Day Return",
+    name: 'Rottnest Island Gift Voucher - Different Day Return',
   },
   vehicles: [
     {
       id: 257194,
       type: {
         id: 10,
-        name: "Luggage  (no larger than 800mm x 500mm x 400mm)",
+        name: 'Luggage  (no larger than 800mm x 500mm x 400mm)',
       },
-      length: "1.0",
+      length: '1.0',
       width: null,
-      height: "0.1",
+      height: '0.1',
       details: null,
       cargo: null,
       registration: null,
@@ -33,24 +33,24 @@ const CONSUMER_SPLIT_BARCODE = {
   passengers: [
     {
       id: 16,
-      name: "",
+      name: '',
       type: {
         id: 1,
-        name: "Adult",
+        name: 'Adult',
       },
     },
   ],
   requires_review: false,
-  todo_items: ["Item 1", "Item 2"],
+  todo_items: ['Item 1', 'Item 2'],
 };
 
 const RESERVATION_BARCODE = {
   id: 172931,
   format: 1,
-  reference: "229JGQ",
+  reference: '229JGQ',
   resource: {
     id: 2,
-    name: "Rottnest Island",
+    name: 'Rottnest Island',
   },
   reservation: {
     id: 172931,
@@ -58,10 +58,10 @@ const RESERVATION_BARCODE = {
     trip_id: 35,
     route_id: 1,
     service_id: 7673,
-    departure_time: "0910",
-    departure_date: "2018-04-17",
+    departure_time: '0910',
+    departure_date: '2018-04-17',
   },
-  passenger_first_name: "Homer Simpson",
+  passenger_first_name: 'Homer Simpson',
   passengers: {
     Ad: 2,
     Ch: 3,
@@ -70,14 +70,14 @@ const RESERVATION_BARCODE = {
     Lugg: 2,
   },
   requires_review: false,
-  todo_items: ["Item 1", "Item 2"],
+  todo_items: ['Item 1', 'Item 2'],
 };
 
 const CONSUMER_SPLIT_SCAN = {
   barcode: {
     id: 9,
     format: 0,
-    reference: "22222K",
+    reference: '22222K',
     reservation: {
       id: 3,
       booking_id: 12,
@@ -85,22 +85,22 @@ const CONSUMER_SPLIT_SCAN = {
       route_id: null,
       service_id: null,
       departure_time: null,
-      departure_date: "2017-11-15",
+      departure_date: '2017-11-15',
     },
     resource: {
       id: 11,
-      name: "Rottnest Island Gift Voucher - Different Day Return",
+      name: 'Rottnest Island Gift Voucher - Different Day Return',
     },
     vehicles: [
       {
         id: 257194,
         type: {
           id: 10,
-          name: "Luggage  (no larger than 800mm x 500mm x 400mm)",
+          name: 'Luggage  (no larger than 800mm x 500mm x 400mm)',
         },
-        length: "1.0",
+        length: '1.0',
         width: null,
-        height: "0.1",
+        height: '0.1',
         details: null,
         cargo: null,
         registration: null,
@@ -109,27 +109,27 @@ const CONSUMER_SPLIT_SCAN = {
     passengers: [
       {
         id: 16,
-        name: "",
+        name: '',
         type: {
           id: 1,
-          name: "Adult",
+          name: 'Adult',
         },
       },
     ],
     requires_review: false,
-    todo_items: ["Item 1", "Item 2"],
+    todo_items: ['Item 1', 'Item 2'],
   },
-  id: "1",
+  id: '1',
 };
 
 const RESERVATION_SCAN = {
   barcode: {
     id: 172931,
     format: 1,
-    reference: "229JGQ",
+    reference: '229JGQ',
     resource: {
       id: 2,
-      name: "Rottnest Island",
+      name: 'Rottnest Island',
     },
     reservation: {
       id: 172931,
@@ -137,10 +137,10 @@ const RESERVATION_SCAN = {
       trip_id: 35,
       route_id: 1,
       service_id: 7673,
-      departure_time: "0910",
-      departure_date: "2018-04-17",
+      departure_time: '0910',
+      departure_date: '2018-04-17',
     },
-    passenger_first_name: "Homer Simpson",
+    passenger_first_name: 'Homer Simpson',
     passengers: {
       Ad: 2,
       Ch: 3,
@@ -149,9 +149,9 @@ const RESERVATION_SCAN = {
       Lugg: 2,
     },
     requires_review: false,
-    todo_items: ["Item 1", "Item 2"],
+    todo_items: ['Item 1', 'Item 2'],
   },
-  id: "1",
+  id: '1',
 };
 
 module.exports = {

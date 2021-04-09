@@ -37,6 +37,7 @@
     "dist"
   ],
   "homepage": "https://github.com/sealink/printers_qt#readme",
+  "prettier": "@sealink/prettier-config",
   "dependencies": {
     "regenerator-runtime": "^0.13.2",
     "uuid": "^8.x"
@@ -45,6 +46,7 @@
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
     "@rollup/plugin-node-resolve": "^11.2.1",
+    "@sealink/prettier-config": "^1.1.0",
     "coveralls": "^3.0.0",
     "isomorphic-fetch": "^3.0.0",
     "istanbul": "^0.4.5",
