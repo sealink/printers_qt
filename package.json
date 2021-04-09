@@ -6,13 +6,14 @@
   "module": "dist/printers_qt.mjs",
   "jsnext:main": "dist/printers_qt.mjs",
   "scripts": {
-    "prebuild": "eslint lib test",
     "build": "rollup -c --environment BUILD:production",
     "watch": "rollup -c -w",
     "pretest": "rollup -c",
     "test": "jest",
     "coverage": "jest --coverage",
-    "prepublish": "BUILD=production npm test"
+    "prepublish": "BUILD=production npm test",
+    "prettier": "prettier --check \"**/*.{js,jsx,yml,scss,md}\"",
+    "prettier:write": "prettier --write \"**/*.{js,jsx,yml,scss,md}\""
   },
   "lint-staged": {
     "**/*.{js,jsx,yml,scss,md}": [
@@ -36,8 +37,8 @@
     "dist"
   ],
   "homepage": "https://github.com/sealink/printers_qt#readme",
+  "prettier": "@sealink/prettier-config",
   "dependencies": {
-    "isomorphic-fetch": "^3.0.0",
     "regenerator-runtime": "^0.13.2",
     "uuid": "^8.x"
   },
@@ -45,11 +46,9 @@
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
     "@rollup/plugin-node-resolve": "^11.2.1",
-    "babel-eslint": "^10.0.1",
+    "@sealink/prettier-config": "^1.1.0",
     "coveralls": "^3.0.0",
-    "eslint": "^7.2.0",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.0",
+    "isomorphic-fetch": "^3.0.0",
     "istanbul": "^0.4.5",
     "jest": "^26.6.3",
     "nock": "^13.0.0",
