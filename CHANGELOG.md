@@ -1,4 +1,4 @@
-## 1.11.2 Unreleased
+## 1.11.2
 
 - [TT-9187] - Fix package when imported with webpack 5
 
