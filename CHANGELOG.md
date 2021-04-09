@@ -1,3 +1,7 @@
+## 1.11.1 Unreleased
+
+- [TT-9181] - Fix api call to issued_tickets board
+
 ## 1.11.0
 
 - [TT-9025] - Expose issued_tickets board endpoint from qt
