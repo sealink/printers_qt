@@ -1,4 +1,4 @@
-## 1.11.1 Unreleased
+## 1.11.1
 
 - [TT-9181] - Fix api call to issued_tickets board
 
