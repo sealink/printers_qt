@@ -1,3 +1,7 @@
+## 1.11.2 Unreleased
+
+- [TT-9187] - Fix package when imported with webpack 5
+
 ## 1.11.1
 
 - [TT-9181] - Fix api call to issued_tickets board
