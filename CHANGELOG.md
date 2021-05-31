@@ -1,3 +1,7 @@
+## Unreleased
+
+- [TT-9454] - Update to Jest 27
+
 ## 1.11.2
 
 - [TT-9187] - Fix package when imported with webpack 5
