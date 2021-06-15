@@ -261,7 +261,7 @@ describe('validate', () => {
       .post('/api/issued_tickets/validate', {
         identifier: 321,
       })
-      .reply(422, { error: 'ERROR GOES HERE' });
+      .reply(422, { error: 'ERROR GOES HERE', staff_can_override: true });
   });
 
   it('should validate the ticket', (done) => {
@@ -284,6 +284,7 @@ describe('validate', () => {
       })
       .catch((err) => {
         expect(err.response.status).toEqual(422);
+        expect(err.json.staff_can_override).toEqual(true);
         done();
       });
   });

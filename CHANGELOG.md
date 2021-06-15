@@ -1,6 +1,7 @@
 ## Unreleased
 
 - [TT-9454] - Update to Jest 27
+- [TT-9512] - Allow 422 to return json response object from QT
 
 ## 1.11.2
 
