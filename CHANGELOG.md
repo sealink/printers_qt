@@ -1,3 +1,7 @@
+## Unreleased
+
+- [OPS-213] GHActions: add Node 16 and remove None 10
+
 ## 1.12.0
 
 - [TT-9454] - Update to Jest 27
