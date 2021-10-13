@@ -1,6 +1,6 @@
 ## Unreleased
 
-- [OPS-213] GHActions: add Node 16 and remove None 10
+- [OPS-213] GHActions: add Node 16 and remove Node 10
 
 ## 1.12.0
 
