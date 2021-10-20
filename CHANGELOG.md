@@ -1,6 +1,7 @@
 ## Unreleased
 
 - [OPS-213] GHActions: add Node 16 and remove Node 10
+- [PLAT-89] Github: Dependabot AutoMerge
 
 ## 1.12.0
 
