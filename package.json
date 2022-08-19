@@ -50,8 +50,9 @@
     "coveralls": "^3.0.0",
     "isomorphic-fetch": "^3.0.0",
     "istanbul": "^0.4.5",
-    "jest": "^27.x",
-    "nock": "^13.0.0",
+    "jest": "^28.x",
+    "jest-environment-jsdom": "^28.x",
+    "nock": "^13.2.9",
     "prettier": "2.7.1",
     "rollup": "^2.0.2",
     "rollup-plugin-babel": "^4.3.3",
@@ -65,12 +66,6 @@
     }
   },
   "engines": {
-    "node": "^10 || ^12 || ^14"
-  },
-  "jest": {
-    "testEnvironment": "jsdom",
-    "setupFilesAfterEnv": [
-      "<rootDir>/test/setupTests.js"
-    ]
+    "node": "^16"
   }
 }

@@ -60,7 +60,7 @@ describe('configuration', () => {
       })
       .reply(200, issuedTickets);
 
-    nock(config.config.host)
+    nock(config.config.host, { reqHeaders: reqHeaders })
       .get('/print_groups/1/printers')
       .reply(200, printersResponse);
   });
