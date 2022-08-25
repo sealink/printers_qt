@@ -50,7 +50,7 @@
     "coveralls": "^3.0.0",
     "isomorphic-fetch": "^3.0.0",
     "istanbul": "^0.4.5",
-    "jest": "^28.x",
+    "jest": "^29.x",
     "jest-environment-jsdom": "^28.x",
     "nock": "^13.2.9",
     "prettier": "2.7.1",
