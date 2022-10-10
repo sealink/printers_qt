@@ -45,7 +45,7 @@
   "devDependencies": {
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
-    "@rollup/plugin-node-resolve": "^14.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.0",
     "@sealink/prettier-config": "^1.1.0",
     "coveralls": "^3.0.0",
     "isomorphic-fetch": "^3.0.0",
