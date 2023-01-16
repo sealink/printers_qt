@@ -2,8 +2,6 @@ import babel from 'rollup-plugin-babel';
 import istanbul from 'rollup-plugin-istanbul';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 
-let pkg = require('./package.json');
-
 let plugins = [
   babel({
     exclude: 'node_modules/**',
@@ -25,13 +23,13 @@ export default {
   external: ['regenerator-runtime/runtime'],
   output: [
     {
-      file: pkg.main,
+      file: '../dist/printers_qt.js',
       format: 'cjs',
       name: 'printers-qt',
       sourcemap: true,
     },
     {
-      file: pkg.module,
+      file: '../dist/printers_qt.mjs',
       format: 'es',
       sourcemap: true,
     },

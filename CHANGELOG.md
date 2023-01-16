@@ -1,3 +1,7 @@
+## Unreleased
+
+- [PLAT-1173] Add node 18 support
+
 ## 1.13.0
 
 - [OPS-213] GHActions: add Node 16 and remove Node 10
