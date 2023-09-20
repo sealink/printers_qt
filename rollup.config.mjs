@@ -23,13 +23,13 @@ export default {
   external: ['regenerator-runtime/runtime'],
   output: [
     {
-      file: '../dist/printers_qt.js',
+      file: './dist/printers_qt.js',
       format: 'cjs',
       name: 'printers-qt',
       sourcemap: true,
     },
     {
-      file: '../dist/printers_qt.mjs',
+      file: './dist/printers_qt.mjs',
       format: 'es',
       sourcemap: true,
     },
