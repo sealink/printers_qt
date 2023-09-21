@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 1.15.0
+
 - [TF-902] Fix build output path
 
 ## 1.14.0
