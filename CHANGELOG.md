@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 1.16.0
+
 - [TBAU-2120] Support Node.js 24: relax engines to >=18, test on Node 18/20/22/24, release on Node 24
 
 ## 1.15.0
